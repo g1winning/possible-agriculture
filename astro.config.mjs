@@ -8,7 +8,7 @@ import mdx from '@astrojs/mdx';
 // While served at https://g1winning.github.io/possible-agriculture/ (no DNS yet),
 // the `base` prefixes every URL. When DNS is pointed and the custom domain is
 // live, change `base` back to `'/'` and restore `public/CNAME`.
-const PRODUCTION_DOMAIN = false; // flip to `true` after DNS cutover
+const PRODUCTION_DOMAIN = true; // DNS cutover live as of 4 June 2026
 
 export default defineConfig({
   site: PRODUCTION_DOMAIN ? 'https://possibleagriculture.com.au' : 'https://g1winning.github.io',
