@@ -33,6 +33,12 @@ if (claim) {
   sub = sub;
 }
 
+// Capitalise the first character of the value (display affordance only — the
+// underlying claims register keeps sentence-fragment form for inline use).
+if (v && v.length) {
+  v = v.charAt(0).toUpperCase() + v.slice(1);
+}
+
 const variantClass = {
   light: 'bg-bg-tint border-rule text-ink',
   dark: 'bg-bark border-white/10 text-paper',

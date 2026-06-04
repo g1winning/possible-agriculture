@@ -67,13 +67,19 @@ const {
 </div>
 
 <script is:inline>
-  (function () {
+  // Run after the DOM is built so .library-card elements exist when we query.
+  function initLibraryFilter() {
     var search = document.getElementById('lib-search');
     var topic = document.getElementById('lib-topic');
     var audience = document.getElementById('lib-audience');
     var summary = document.getElementById('lib-results-summary');
     var cards = Array.from(document.querySelectorAll('.library-card'));
     var emptyMsg = document.getElementById('lib-empty-state');
+
+    if (!search || !topic || !audience || cards.length === 0) {
+      // Wire didn't connect — bail without throwing
+      return;
+    }
 
     function update() {
       var s = (search.value || '').trim().toLowerCase();
@@ -103,9 +109,15 @@ const {
       }
     }
 
-    if (search) search.addEventListener('input', update);
-    if (topic) topic.addEventListener('change', update);
-    if (audience) audience.addEventListener('change', update);
+    search.addEventListener('input', update);
+    topic.addEventListener('change', update);
+    audience.addEventListener('change', update);
     update();
-  })();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLibraryFilter);
+  } else {
+    initLibraryFilter();
+  }
 </script>
