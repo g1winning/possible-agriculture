@@ -5,11 +5,14 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
+// While served at https://g1winning.github.io/possible-agriculture/ (no DNS yet),
+// the `base` prefixes every URL. When DNS is pointed and the custom domain is
+// live, change `base` back to `'/'` and restore `public/CNAME`.
+const PRODUCTION_DOMAIN = false; // flip to `true` after DNS cutover
+
 export default defineConfig({
-  site: 'https://possibleagriculture.com.au',
-  // GitHub Pages with custom domain: site root is "/"
-  // (If launched first on <user>.github.io/possibleagriculture, change to `base: '/possibleagriculture'`.)
-  base: '/',
+  site: PRODUCTION_DOMAIN ? 'https://possibleagriculture.com.au' : 'https://g1winning.github.io',
+  base: PRODUCTION_DOMAIN ? '/' : '/possible-agriculture',
   output: 'static',
   trailingSlash: 'ignore',
   // Legacy URL redirects — pre-rebuild URLs map cleanly to new ones
