@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import CardCase from '@components/CardCase.astro';
+
+const title = 'Biochar case studies — Australian and international trials';
+const description = 'Real-world biochar trial results from Australian dairies, US golf courses, and ongoing pilots. With proper attribution and bridge lines where the product used wasn\'t ours.';
+
+const studies = (await getCollection('case-studies')).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
+  return a.data.order - b.data.order;
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want your trial to be the next case study on this page?"
+  enquiryRailCta="Scope a trial"
+>
+  <Hero
+    layout="split"
+    eyebrow="Case studies"
+    heading="Real trials. Honest attribution. Numbers you can verify."
+    lead="A working list of the biochar trials we cite — both the ones where Possible Agriculture Biochar was the product used, and the ones where a different producer's product was used and we want to give them their proper credit. The bridge line is on every one that needs it."
+    primaryCta={{ label: 'Scope a trial on your property', href: '/contact?subject=pilot-trial' }}
+    image="/images/hero/case-studies.jpg"
+    imageAlt="Field trial site with markers and a researcher walking measurement transects"
+  />
+
+  <Section container="wide" eyebrow="Featured" heading="Trials currently informing our practice." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {
+        studies.map((s) => (
+          <CardCase
+            title={s.data.title}
+            subtitle={s.data.subtitle}
+            operation={s.data.operation}
+            location={s.data.location}
+            year={s.data.year}
+            metric={s.data.headlineMetric}
+            attribution={s.data.attribution}
+            productUsed={s.data.productUsed}
+            bridgeNote={s.data.bridgeNote}
+            image={s.data.image}
+            imageAlt={s.data.imageAlt}
+            href={`/case-studies/${s.slug}`}
+          />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section container="narrow" variant="tint" eyebrow="More trials coming" heading="Your operation could be the next case study." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        We're actively scoping pilot trials with Australian dairies, feedlots, golf courses, and councils. If you've got a paddock, a putting green, a parkland, or a milking shed where biochar might fit — and you'd be willing to let us publish the results — we'll often run the trial at a reduced product cost in exchange for the attribution.
+      </p>
+      <p>
+        Trial design is part of the offer. We help with the controls, the measurement plan, and the data review at the midpoint and end. We don't publish bad results either — if biochar doesn't work in your specific context, the trial stays internal.
+      </p>
+      <p>
+        <a href="/contact?subject=pilot-trial">Get in touch about scoping a pilot.</a>
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

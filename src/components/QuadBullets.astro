@@ -1,0 +1,29 @@
+---
+export interface Props {
+  items?: string[];
+  variant?: 'light' | 'dark';
+  align?: 'left' | 'right' | 'center';
+}
+
+const {
+  items = ['More sustainable.', 'More effective.', 'More reliable.', 'More pure.'],
+  variant = 'light',
+  align = 'right',
+} = Astro.props;
+
+const alignClass = {
+  left: 'text-left items-start',
+  right: 'text-right items-end',
+  center: 'text-center items-center',
+}[align];
+---
+
+<ul class={`flex flex-col gap-2 ${alignClass}`} aria-label="Brand promises">
+  {
+    items.map((item) => (
+      <li class={`font-display font-extrabold text-h3 md:text-h3-lg leading-tight ${variant === 'dark' ? 'text-bush-gold' : 'text-ink'}`}>
+        {item}
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,510 @@
+/* Possible Agriculture — Global styles
+   Anchors the design-system tokens to CSS custom properties so non-Tailwind
+   styles (prose injections, third-party widgets, MDX content) can still
+   resolve brand tokens.
+
+   Source of truth: /design-system/MASTER.md
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ----- Design-system CSS custom properties ----- */
+  :root {
+    /* Core */
+    --ink: #0e0e0e;
+    --paper: #ffffff;
+    --bark: #1f2820;
+    --bush-gold: #d9a65a;
+    --sage: #7a8265;
+    --eucalypt: #3d4b36;
+    --sky: #a4b5bd;
+    --umber: #6b3f26;
+    --char: #0e0e0e;
+
+    /* Semantic */
+    --color-bg: var(--paper);
+    --color-bg-tint: #faf7f1;
+    --color-bg-warm: #f4efe3;
+    --color-bg-dark: var(--bark);
+    --color-text: var(--ink);
+    --color-text-muted: #4a4a47;
+    --color-text-inverse: var(--paper);
+    --color-text-citation: var(--umber);
+    --color-accent: var(--bush-gold);
+    --color-accent-ink: var(--ink);
+    --color-secondary: var(--sage);
+    --color-rule: rgba(122, 130, 101, 0.4);
+    --color-rule-dark: rgba(255, 255, 255, 0.12);
+    --color-success: var(--eucalypt);
+    --color-error: #9b3a2e;
+
+    /* Motion */
+    --duration-fast: 150ms;
+    --duration-base: 220ms;
+    --duration-slow: 320ms;
+    --easing-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --easing-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* Layout */
+    --container-prose: 72ch;
+    --container-narrow: 768px;
+    --container-default: 1120px;
+    --container-wide: 1280px;
+  }
+
+  /* ----- Element baseline ----- */
+  html {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Open Sans', system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 28px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+    color: var(--color-text);
+  }
+
+  /* Type hierarchy — defaults; pages can override via utility classes.
+     Note: we deliberately do NOT set `color` here so headings inherit
+     from their parent container — meaning .on-dark sections automatically
+     get white headings without per-page overrides. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 2.75rem;
+    letter-spacing: -0.01em;
+    font-weight: 800;
+  }
+
+  @media (min-width: 1024px) {
+    h1 {
+      font-size: 4rem;
+      line-height: 4.25rem;
+    }
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Links — body-text colour, gold underline accent.
+     Scoped with :not(.btn) so the link rule doesn't bleed into button text
+     where the .btn-* classes set their own color/decoration. */
+  a:not(.btn):not(.skip-link) {
+    color: var(--eucalypt);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(217, 166, 90, 0.6);
+    transition: color var(--duration-fast) var(--easing-out),
+      text-decoration-color var(--duration-fast) var(--easing-out);
+  }
+
+  a:not(.btn):not(.skip-link):hover {
+    color: #a6772f; /* bush-gold-600 */
+    text-decoration-color: #a6772f;
+  }
+
+  /* Buttons explicitly opt out of any inherited underline */
+  .btn {
+    text-decoration: none !important;
+  }
+
+  /* Focus — accessible, on-brand */
+  :focus {
+    outline: none;
+  }
+  :focus-visible {
+    outline: 3px solid var(--bush-gold);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Skip-link */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 20px;
+    border-radius: 6px;
+    z-index: 999;
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    left: 16px;
+    top: 16px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--bush-gold);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  /* ----- Container ----- */
+  .container-default {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--container-default);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-default {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-default {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .container-wide {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--container-wide);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .container-narrow {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--container-narrow);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .container-prose {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--container-prose);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  /* ----- Eyebrow ----- */
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sage);
+  }
+  .eyebrow-on-dark {
+    color: #c2c7b5; /* sage-200 */
+  }
+
+  /* ----- Buttons (also see Button.astro for component) ----- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.005em;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--easing-out),
+      color var(--duration-fast) var(--easing-out),
+      border-color var(--duration-fast) var(--easing-out),
+      transform var(--duration-fast) var(--easing-out),
+      box-shadow var(--duration-fast) var(--easing-out);
+    text-decoration: none;
+    min-height: 48px; /* >=44px touch target */
+    user-select: none;
+    will-change: transform;
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn-primary {
+    background-color: var(--bush-gold);
+    color: var(--ink);
+    border-color: #c8923f; /* bush-gold-500 */
+  }
+  .btn-primary:hover {
+    background-color: #c8923f;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--ink);
+    border-color: var(--sage);
+  }
+  .btn-secondary:hover {
+    background-color: var(--sage);
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--ink);
+    border-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .btn-ghost:hover {
+    color: #c8923f;
+    text-decoration: none;
+  }
+
+  .btn-on-dark {
+    background-color: var(--bush-gold);
+    color: var(--ink);
+  }
+  .btn-on-dark.btn-secondary {
+    background-color: transparent;
+    color: var(--paper);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+  .btn-on-dark.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: var(--paper);
+  }
+
+  /* ----- Rule (divider) ----- */
+  .rule {
+    height: 1px;
+    background-color: var(--color-rule);
+    border: none;
+    margin: 2rem 0;
+  }
+  .rule-bold {
+    height: 2px;
+    background-color: var(--ink);
+  }
+
+  /* ----- Citation (in-text) ----- */
+  .citation {
+    color: var(--color-text-citation);
+    font-style: italic;
+    font-size: 0.95em;
+    border-bottom: 1px dotted currentColor;
+    cursor: help;
+  }
+
+  /* ----- Form fields ----- */
+  .field {
+    display: block;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background-color: var(--paper);
+    border: 1px solid var(--sage);
+    border-radius: 8px;
+    font-family: 'Open Sans', system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: var(--color-text);
+    transition: border-color var(--duration-fast) var(--easing-out),
+      box-shadow var(--duration-fast) var(--easing-out);
+    min-height: 48px;
+  }
+  .field:focus-visible {
+    border-color: var(--bush-gold);
+    outline: none;
+    box-shadow: var(--shadow-focus, 0 0 0 3px rgba(217, 166, 90, 0.45));
+  }
+  .field-label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .field-required::after {
+    content: '*';
+    color: var(--color-error);
+    margin-left: 0.25rem;
+  }
+  .field-help {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    color: var(--color-text-muted);
+    margin-top: 0.375rem;
+  }
+
+  /* ----- Card hover lift ----- */
+  .card-lift {
+    transition: transform var(--duration-base) var(--easing-out),
+      box-shadow var(--duration-base) var(--easing-out);
+  }
+  .card-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(14, 14, 14, 0.12);
+  }
+
+  /* ----- Hero overlay vignette ----- */
+  .hero-vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 30% 70%,
+      transparent 40%,
+      rgba(14, 14, 14, 0.4) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* ----- Tag (audience chip) ----- */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--color-bg-tint);
+    color: var(--eucalypt);
+    border: 1px solid var(--color-rule);
+    border-radius: 9999px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.04em;
+  }
+  .tag-dark {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--paper);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  /* ----- Prose — narrative pages ----- */
+  .prose-pa {
+    max-width: var(--container-prose);
+  }
+  .prose-pa h2 {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  .prose-pa h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-pa p {
+    margin-bottom: 1.25rem;
+  }
+  .prose-pa ul,
+  .prose-pa ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.25rem;
+  }
+  .prose-pa li {
+    margin-bottom: 0.5rem;
+  }
+  .prose-pa li::marker {
+    color: var(--bush-gold);
+  }
+
+  /* ----- Image with warm vignette ----- */
+  .img-vignette {
+    position: relative;
+    overflow: hidden;
+  }
+  .img-vignette > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .img-vignette::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 70% 80%,
+      transparent 50%,
+      rgba(14, 14, 14, 0.18) 100%
+    );
+    pointer-events: none;
+  }
+}
+
+@layer utilities {
+  /* Stable text-wrap utilities for older browsers */
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Reverse-text helper for dark sections — applies to all descendants
+     including headings (which inherit because we removed the explicit
+     h1–h6 color rule). */
+  .on-dark,
+  .on-dark h1,
+  .on-dark h2,
+  .on-dark h3,
+  .on-dark h4,
+  .on-dark h5,
+  .on-dark h6,
+  .on-dark p,
+  .on-dark li {
+    color: var(--paper);
+  }
+  .on-dark a:not(.btn) {
+    color: var(--bush-gold);
+  }
+  .on-dark a:not(.btn):hover {
+    color: #ebd09a; /* bush-gold-200 */
+  }
+}

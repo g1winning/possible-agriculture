@@ -1,0 +1,200 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import Citation from '@components/Citation.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Biochar for golf courses & turf in Australia';
+const description = 'Reduce irrigation needs by up to 40%, lift root health, recover from compaction. Possible Agriculture Biochar for Australian golf courses, putting greens and sports turf.';
+
+const faqs = [
+  {
+    q: 'Is your biochar USGA approved?',
+    a: '<strong>No biochar is USGA-approved</strong> — the 2018 USGA Recommendations don\'t mention biochar at all, and any product claiming USGA approval is over-stating. What we do say: our biochar is <strong>compatible with USGA-recommended putting-green construction principles</strong>, and in peer-reviewed sandy-soil trials, woody biochar amendments have doubled water-holding capacity <Citation claim="waterHoldingSoil" />. Because biochar is non-biodegradable, long-term effects on highly-draining sports profiles vary by feedstock and rate — we recommend a pilot trial on a single green or practice fairway before any full course amendment.',
+  },
+  {
+    q: 'How do I apply it on an existing green?',
+    a: '<strong>Top-dress scarified turf</strong> for the easiest regular application — the biochar washes through to the root zone over the next few weeks. Alternatively, <strong>underlay turf during roll-out</strong> for new construction (best root penetration), or <strong>mix 5–10% with sand in divot buckets</strong> for ongoing recovery. For fertigation programs, mix biochar with your regular fertiliser to reduce fertiliser losses in rain events.',
+  },
+  {
+    q: 'What about the 50% water-bill savings other people quote?',
+    a: 'The 50% figure is from a US case study by Biochar Now (California) — a different producer, a different product. We attribute it to them. The number from our own turf trials in Australia, where the product has been applied: up to 40% irrigation reduction <Citation claim="irrigationSavings" />. Results vary by site, soil type, application rate and climate.',
+  },
+  {
+    q: 'Does biochar disrupt the sand-based profile?',
+    a: 'In small inclusion rates (1–2% by volume in the 0–4 cm root zone), no. Biochar improves water-holding without disrupting the drainage characteristics that make sand profiles work. At higher rates the drainage curve does change — which is why we recommend a pilot trial on a practice fairway or back-of-range green before any course-wide amendment.',
+  },
+  {
+    q: 'Will it work in salty soils?',
+    a: 'Biochar amendments improve soil structure and reduce the effect of salinity on plant water uptake. One greenhouse trial (Pakistan, 2021) found biochar restored ~30% of the water-uptake capacity that high-salinity soils lose. Site-specific outcomes vary.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want to run a pilot on a single green or practice fairway?"
+  enquiryRailCta="Talk to us"
+>
+  <Hero
+    layout="overlay"
+    eyebrow="For turf managers · For superintendents"
+    heading="Biochar for golf courses and turf."
+    lead="Reduce irrigation costs. Improve compaction recovery. Lift nitrogen and phosphorus retention. Australian-made, NATA-tested at 88.6% total carbon, and supplied with a pilot-trial offer for a single green before any course-wide commitment."
+    primaryCta={{ label: 'Get a quote for your course', href: '/contact?subject=turf-quote' }}
+    secondaryCta={{ label: 'See the turf research', href: '/library' }}
+    image="/images/hero/golf-fairway-golden-hour.jpg"
+    imageAlt="Australian golf course fairway at golden hour with native eucalypts"
+    trust={[
+      'Up to 40% irrigation savings in trials',
+      'USGA-construction-principle compatible',
+      'Pilot trials on a single green',
+    ]}
+  />
+
+  <!-- Intro -->
+  <Section
+    container="narrow"
+    eyebrow="The case for turf"
+    heading="Four levers, one amendment."
+    subheading="Australian turf managers are working against compaction, salinity, irrigation costs, and tighter restrictions on chemical inputs. Possible Agriculture Biochar — our sustainably produced Sugargum hardwood biochar — pulls all four levers at once. Incorporated at 1–2% by volume into the 0–4 cm root-zone layer."
+    spacing="default"
+  />
+
+  <!-- Numbers -->
+  <Section container="default" spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <ClaimCallout claim="irrigationSavings" sublabel="Irrigation reduction in turf trials" variant="gold" />
+      <ClaimCallout claim="waterHoldingSoil" sublabel="Soil water-holding capacity" variant="light" />
+      <ClaimCallout claim="pfasReduction" sublabel="PFAS leaching reduction" variant="light" />
+    </div>
+  </Section>
+
+  <!-- Save water -->
+  <Section
+    container="narrow"
+    variant="tint"
+    eyebrow="Save water"
+    heading="Reduce irrigation needs by up to 40% in trials where applied."
+    spacing="default"
+  >
+    <div class="prose prose-pa">
+      <p>
+        Woody biochar can double the water-holding capacity of sandy soils at a 9% mixture rate <Citation claim="waterHoldingSoil" /> — pure biochar itself holds over 2.7× its dry weight in water <Citation claim="waterHoldingBiochar" />.
+      </p>
+      <p>
+        <strong>In turf trials where Possible Agriculture Biochar has been applied, irrigation needs have been reduced by up to 40%</strong> <Citation claim="irrigationSavings" />. Results vary by site, soil type and application rate.
+      </p>
+      <p class="text-text-muted italic text-body-sm">
+        Note: a separate US case study (Biochar Now, California) reported up to 50% irrigation savings using a different biochar product — that result belongs to them, not us.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Compaction & structure -->
+  <Section
+    container="default"
+    eyebrow="Compaction, salinity, structure"
+    heading="Three problems that share a single amendment."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">Lower compaction</h3>
+        <p class="mt-4 text-body text-text-muted">
+          Incorporated at 0–4 cm, biochar mitigates subsoil compaction from foot traffic and machinery — the zone where roots establish quickest but are most vulnerable. Result: faster recovery, lower aeration cycles, reduced turf replacement in high-traffic areas.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">Salinity resilience</h3>
+        <p class="mt-4 text-body text-text-muted">
+          Biochar amendments improve soil structure and reduce the effect of salinity on plant water uptake. In one greenhouse trial, biochar restored ~30% of the water-uptake capacity high-salinity soils lose (Pakistan, 2021).
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">Better root systems</h3>
+        <p class="mt-4 text-body text-text-muted">
+          Improved water and nutrient availability in the root-zone layer supports deeper, healthier root establishment — particularly relevant for new turf installs or recovery after stress events.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Safeguard soils -->
+  <Section
+    container="narrow"
+    variant="dark"
+    eyebrow="Safeguard your soils"
+    heading="The PFAS and heavy-metals brief."
+    spacing="default"
+  >
+    <div class="prose prose-pa prose-invert max-w-none">
+      <p class="text-paper">
+        High-temperature activated wood biochars like ours have been shown to adsorb and immobilise heavy metals (arsenic, cadmium, mercury) and to <strong>reduce PFAS leaching by up to 98–100% at 5% application in low-organic-matter soils</strong> <Citation claim="pfasReduction" />.
+      </p>
+      <p class="text-sky">
+        Performance reduces in soils with high organic matter. For contaminated-site remediation, we recommend a site-specific pilot trial — and we'll help you design one.
+      </p>
+    </div>
+  </Section>
+
+  <!-- USGA wording -->
+  <Section
+    container="narrow"
+    eyebrow="USGA & construction principles"
+    heading="Compatible with USGA putting-green construction principles."
+    spacing="default"
+  >
+    <div class="prose prose-pa">
+      <p>
+        Our biochar is compatible with USGA-recommended putting-green construction principles. In peer-reviewed sandy-soil trials, woody biochar amendments have doubled water-holding capacity <Citation claim="waterHoldingSoil" />.
+      </p>
+      <p>
+        Because biochar is non-biodegradable, its long-term effects on highly-draining sports profiles vary by feedstock and rate. <strong>We recommend a pilot trial on a single green or practice fairway before any full course amendment.</strong>
+      </p>
+      <p class="text-text-muted text-body-sm italic">
+        See the Australian Turfgrass Management Journal article in our <a href="/library">biochar library</a> for a balanced review of biochar in sports turf.
+      </p>
+    </div>
+  </Section>
+
+  <!-- How to use it -->
+  <Section
+    container="default"
+    variant="tint"
+    eyebrow="Application"
+    heading="How to use it."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+      <ul class="space-y-4 text-body">
+        <li class="flex gap-3">
+          <span class="font-display font-extrabold text-bush-gold-600 text-h4 shrink-0 w-8">1</span>
+          <span><strong>Top-dress scarified turf</strong> — easiest regular application. Biochar washes through to the root zone over the next few weeks.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-display font-extrabold text-bush-gold-600 text-h4 shrink-0 w-8">2</span>
+          <span><strong>Underlay turf roll-out</strong> — for new construction or full re-turfing. Best for root penetration and long-term survivability.</span>
+        </li>
+      </ul>
+      <ul class="space-y-4 text-body">
+        <li class="flex gap-3">
+          <span class="font-display font-extrabold text-bush-gold-600 text-h4 shrink-0 w-8">3</span>
+          <span><strong>Mix 5–10% with sand</strong> in divot buckets — ongoing recovery on tees, fairways, and high-traffic patches.</span>
+        </li>
+        <li class="flex gap-3">
+          <span class="font-display font-extrabold text-bush-gold-600 text-h4 shrink-0 w-8">4</span>
+          <span><strong>Fertigate</strong> — mix biochar with your regular fertiliser program to reduce N&P losses in rain events.</span>
+        </li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

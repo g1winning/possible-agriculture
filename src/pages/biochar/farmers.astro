@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import Citation from '@components/Citation.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Biochar for Australian farmers and feedlotters';
+const description = 'Possible Agriculture Biochar for farmers and feedlotters — soil carbon, manure stabilisation, ration inclusion, ACCU eligibility scoping. Australian Sugargum hardwood, NATA-tested at 88.6% total carbon.';
+
+const faqs = [
+  {
+    q: 'How do I work biochar into an existing operation without disrupting things?',
+    a: 'Three entry points. <strong>Start with manure</strong> — apply biochar to manure piles or compost windrows before spreading; least disruption, biggest soil-carbon win. <strong>Start with a paddock</strong> — biochar-amended compost on a single paddock, measured against a control over one season. <strong>Start with the ration</strong> — biochar at 0.6–1% of dietary DM for cattle, introduced gradually over 7–10 days. Most operators do all three eventually.',
+  },
+  {
+    q: 'What\'s the on-farm production option?',
+    a: 'If you have woody-waste streams — storm debris, shelterbelt residues, orchard prunings — our <strong>flame-curtain method</strong> produces biochar at the lowest cost-per-cubic-metre of any method available in Australia. No $500K+ industrial kiln needed. We can run a production day on your property, or train your team to do it. <a href="https://www.youtube.com/@PossibleAgriculture" target="_blank" rel="noopener">See it on YouTube</a>.',
+  },
+  {
+    q: 'How does this fit into a regen-ag program I\'m already running?',
+    a: 'Biochar slots in alongside cover-cropping, rotational grazing, no-till, and compost programs — it doesn\'t replace any of them. The high-T activated profile is what builds the durable soil-carbon component, the manure-binding effect closes the nutrient loop, and the feed-additive use ties in animal performance. If you\'re already running a regen system, biochar is the easiest layer to add on top.',
+  },
+  {
+    q: 'Can I claim ACCUs for this?',
+    a: 'Possibly — composting and biochar production are accepted methods for building soil carbon under the Australian framework. But credit eligibility depends on project assessment by the Clean Energy Regulator, and many regen-ag practices that build carbon don\'t cleanly map to existing methodologies. We can scope your specific situation honestly.',
+  },
+  {
+    q: 'What kind of field day or training do you offer?',
+    a: 'Regenerative farming groups — book us in for a field day. On-property demonstration of the flame-curtain method, walk-through of soil-carbon-building practice, and time for questions. <a href="/contact?subject=field-day">Get in touch</a> if your group is interested.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want to scope a trial, book a field day, or quote a delivery?"
+  enquiryRailCta="Get in touch"
+>
+  <Hero
+    layout="overlay"
+    eyebrow="For farmers · For feedlotters · For mixed operations"
+    heading="Biochar for farmers and feedlotters."
+    lead="Soil carbon, manure stabilisation, ration inclusion, ACCU scoping — and the cheapest on-farm production method available in Australia if you have woody-waste streams of your own."
+    primaryCta={{ label: 'Get a quote or book a consult', href: '/contact?subject=farmer-quote' }}
+    secondaryCta={{ label: 'See on-farm production on YouTube', href: 'https://www.youtube.com/@PossibleAgriculture' }}
+    image="/images/hero/farm-paddock.jpg"
+    imageAlt="Australian mixed-farm paddock with cattle and shelterbelt at golden hour"
+    trust={[
+      '88.6% NATA-tested carbon',
+      'Flame-curtain production on your land',
+      '0.6–1% inclusion in cattle ration',
+      'ACCU eligibility scoping',
+    ]}
+  />
+
+  <!-- Intro -->
+  <Section
+    container="narrow"
+    eyebrow="The case"
+    heading="Rising input costs, methane scrutiny, tightening margins."
+    subheading="Biochar at 0.6–1% of dietary dry matter has been shown in published trials to improve feed conversion, lift live-weight gain, and reduce enteric methane. On the soil side, it builds long-term carbon and reduces nitrogen leaching from manure and fertiliser. We supply the biochar, advise on how to integrate it into your ration or composting system, and can run on-farm production if your operation has the woody-waste stream for it."
+    spacing="default"
+  />
+
+  <!-- The numbers -->
+  <Section container="default" eyebrow="The numbers" heading="What the published research says." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <ClaimCallout claim="milkYield" sublabel="Australian dairy trial" variant="gold" />
+      <ClaimCallout claim="liveWeightGain" sublabel="Cattle, biochar at 0.6% DM" />
+      <ClaimCallout claim="methaneCombined" sublabel="With potassium nitrate" />
+    </div>
+  </Section>
+
+  <!-- Application rates -->
+  <Section container="default" variant="tint" eyebrow="Application rates" heading="Where biochar goes — and how much." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">In the ration</h3>
+        <ul class="mt-4 space-y-2 text-body text-text">
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Cattle:</strong> 0.6–1% of dietary dry matter. Introduce gradually over 7–10 days.</li>
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Poultry, pigs, sheep:</strong> 1–2.5% of feed.</li>
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Dairy:</strong> ~1% of mixed ration (per Rebbeck 2023 trial design).</li>
+        </ul>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">On the soil</h3>
+        <ul class="mt-4 space-y-2 text-body text-text">
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Manure / compost:</strong> 5–15% by volume in the windrow.</li>
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Soil amendment:</strong> 2–8% by mass for row crops.</li>
+          <li class="flex gap-3"><span class="text-bush-gold-600 font-bold">·</span><strong>Pasture:</strong> 1–3 t/ha incorporated with renovation or top-dressed with compost.</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Manure / composting -->
+  <Section container="narrow" eyebrow="On-farm composting and manure management" heading="Close the nutrient loop." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Biochar makes on-farm composting more valuable: it preserves nitrogen and phosphorus that would otherwise volatilise or leach, while also reducing odour. Apply biochar to manure piles or compost windrows before spreading; the result is a more stable, slower-release nutrient amendment for paddocks and pastures.
+      </p>
+      <p>
+        For mixed operations with livestock and crops, this is the entry point — biochar-amended compost replaces purchased fertiliser inputs while building durable soil carbon at the same time.
+      </p>
+    </div>
+  </Section>
+
+  <!-- N & P leaching -->
+  <Section container="default" variant="dark" eyebrow="What it does to N and P leaching" heading="Reducing fertiliser losses." spacing="default">
+    <div class="overflow-x-auto rounded-xl border border-white/10 bg-white/5">
+      <table class="w-full text-left text-paper">
+        <thead class="border-b border-white/15">
+          <tr>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">Biochar in soil</th>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">N leaching reduction</th>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">P leaching reduction</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/10 font-mono">
+          <tr><td class="px-6 py-4">2%</td><td class="px-6 py-4 text-bush-gold">17.6%</td><td class="px-6 py-4 text-bush-gold">26.0%</td></tr>
+          <tr><td class="px-6 py-4">4%</td><td class="px-6 py-4 text-bush-gold">24.7%</td><td class="px-6 py-4 text-bush-gold">12.0%</td></tr>
+          <tr><td class="px-6 py-4">6%</td><td class="px-6 py-4 text-bush-gold">30.6%</td><td class="px-6 py-4 text-bush-gold">15.7%</td></tr>
+          <tr><td class="px-6 py-4">8%</td><td class="px-6 py-4 text-bush-gold">37.7%</td><td class="px-6 py-4 text-bush-gold">19.7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-caption italic text-sky">
+      Huang et al. 2020 — see the full paper in <a href="/library" class="text-bush-gold underline">our library</a>.
+    </p>
+  </Section>
+
+  <!-- Carbon, grants, ACCUs -->
+  <Section container="narrow" variant="tint" eyebrow="Carbon, grants and ACCUs" heading="Recognition for what you're already doing." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Composting and biochar production are accepted methods for building soil carbon under the Australian carbon credit accreditation framework. If you've already implemented soil-carbon-building practices and want recognition for them, we can help you scope eligibility under the Emissions Reduction Fund and the Australian Carbon Credit Units (ACCUs) scheme.
+      </p>
+      <p class="text-body-sm italic text-text-muted">
+        Credit eligibility depends on project assessment by the Clean Energy Regulator.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Field day -->
+  <Section container="narrow" eyebrow="Field days" heading="Regenerative farming group? Book us in for a field day." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        On-property demonstration of the flame-curtain biochar production method, walk-through of soil-carbon-building practice, and time for questions. <a href="/contact?subject=field-day">Get in touch</a> and we'll work out a date.
+      </p>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" variant="tint" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

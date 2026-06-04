@@ -1,0 +1,178 @@
+---
+import '@/styles/global.css';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import { site } from '@lib/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Path-relative or absolute OG image URL. Defaults to brand hero. */
+  ogImage?: string;
+  /** Optional canonical URL override; defaults to current page. */
+  canonical?: string;
+  /** JSON-LD schema object(s) — Organization is auto-merged. */
+  schema?: unknown[];
+  /** Show the page-footer enquiry rail above the global footer. */
+  showEnquiryRail?: boolean;
+  /** Heading for the enquiry rail. */
+  enquiryRailHeading?: string;
+  /** CTA label for the enquiry rail. */
+  enquiryRailCta?: string;
+  /** Body class for page-specific styling. */
+  bodyClass?: string;
+  /** Optional image URL to preload as LCP candidate (use for the largest above-the-fold image on the page). */
+  preloadImage?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/images/og/default-og.jpg',
+  canonical,
+  schema = [],
+  showEnquiryRail = true,
+  enquiryRailHeading = 'Want to make biochar on your land, buy it by the m³, or scope a project?',
+  enquiryRailCta = 'Talk to us',
+  bodyClass = '',
+  preloadImage,
+} = Astro.props;
+
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site.url).toString();
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, site.url).toString();
+
+// Organization schema — always included
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  description: site.description,
+  email: site.founder.email,
+  telephone: site.founder.phoneTel,
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: site.location.region,
+    addressCountry: 'AU',
+  },
+  founder: {
+    '@type': 'Person',
+    name: site.founder.name,
+  },
+  sameAs: [site.social.youtube],
+};
+
+const allSchemas = [organizationSchema, ...schema];
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:site_name" content={site.name} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Theme + favicons -->
+    <meta name="theme-color" content="#1F2820" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Fonts — async-loaded with display:swap so they don't block initial render -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      />
+    </noscript>
+
+    <!-- Sitemap reference -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <!-- JSON-LD schema -->
+    {
+      allSchemas.map((s) => (
+        <script type="application/ld+json" set:html={JSON.stringify(s)} />
+      ))
+    }
+
+    <!-- Cloudflare Web Analytics — fires only when a token is configured -->
+    {
+      site.cloudflareAnalyticsToken && (
+        <script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={`{"token": "${site.cloudflareAnalyticsToken}"}`}
+        />
+      )
+    }
+  </head>
+
+  <body class={bodyClass}>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <Header />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    {
+      showEnquiryRail && (
+        <section
+          class="bg-bark on-dark py-16 md:py-24"
+          aria-labelledby="enquiry-rail-heading"
+        >
+          <div class="container-default">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+              <h2
+                id="enquiry-rail-heading"
+                class="font-display font-bold text-h2 md:text-h2-lg leading-tight max-w-[36ch] text-balance"
+              >
+                {enquiryRailHeading}
+              </h2>
+              <a href="/contact" class="btn btn-primary self-start md:self-auto whitespace-nowrap">
+                {enquiryRailCta}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+
+const title = 'Insights — field notes from Possible Agriculture';
+const description = 'Practical, operator-level writing on biochar, biological farming, silvaculture, carbon farming, and environmental remediation. From the paddock, not the journal.';
+
+// Pull published (non-draft) insights only
+const insights = (await getCollection('insights', ({ data }) => !data.draft)).sort((a, b) => {
+  return new Date(b.data.publishedAt).valueOf() - new Date(a.data.publishedAt).valueOf();
+});
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want one of these subjects covered for your operation specifically?"
+  enquiryRailCta="Talk to us"
+>
+  <Hero
+    layout="split"
+    eyebrow="Insights"
+    heading="Plain-English writing on biochar, soil biology, and silvaculture."
+    lead="Practical articles on biochar application, biological farming, environmental remediation, and carbon. Written for operators and decision-makers — farmers, council managers, turf superintendents — who need the answer, not the methodology."
+    primaryCta={{ label: 'Subscribe via RSS', href: '/rss.xml' }}
+    secondaryCta={{ label: 'See the research library', href: '/library' }}
+    image="/images/hero/library.jpg"
+    imageAlt="A weathered farm desk with research papers, brochures, and a sample jar of biochar in late afternoon light"
+  />
+
+  {
+    insights.length === 0 ? (
+      <Section container="narrow" eyebrow="Coming soon" heading="First articles being drafted." spacing="default">
+        <div class="prose prose-pa">
+          <p>
+            Practical articles on biochar in farming, livestock, councils, turf, and environmental remediation are in production. Plain English, peer-reviewed sources cited, written for operators making decisions on their own land.
+          </p>
+          <p>
+            <a href="/contact?subject=insights-subscribe">Email us</a> if you want to be told when the first article lands.
+          </p>
+        </div>
+      </Section>
+    ) : (
+      <Section container="wide" spacing="default">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {insights.map((item) => (
+            <a
+              href={`/insights/${item.slug}`}
+              class="card-lift block rounded-xl overflow-hidden bg-paper border border-rule no-underline hover:no-underline h-full flex flex-col"
+            >
+              {item.data.image && (
+                <div class="aspect-segment overflow-hidden bg-bg-tint">
+                  <img src={item.data.image} alt={item.data.imageAlt ?? ''} class="w-full h-full object-cover" loading="lazy" />
+                </div>
+              )}
+              <div class="p-6 md:p-8 flex flex-col flex-1">
+                <p class="eyebrow text-bush-gold-600 mb-2">
+                  {new Date(item.data.publishedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                  {item.data.readingTime && <span> · {item.data.readingTime}</span>}
+                </p>
+                <h3 class="font-display font-bold text-h3 leading-tight text-ink">{item.data.title}</h3>
+                <p class="mt-3 text-body text-text-muted flex-1">{item.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+    )
+  }
+</BaseLayout>

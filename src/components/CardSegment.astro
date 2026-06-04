@@ -1,0 +1,54 @@
+---
+export interface Props {
+  title: string;
+  eyebrow?: string;
+  /** One-liner positioning under the title. */
+  positioning?: string;
+  /** 2–3 sentence body. */
+  body: string;
+  /** Where the card links to. */
+  href: string;
+  /** Optional image. */
+  image?: string;
+  imageAlt?: string;
+  /** Optional Lucide-style inline icon name — kept inline for static build simplicity. */
+  iconSvg?: string;
+}
+
+const { title, eyebrow, positioning, body, href, image, imageAlt = '', iconSvg } = Astro.props;
+---
+
+<a
+  href={href}
+  class="card-lift block rounded-xl overflow-hidden bg-paper border border-rule no-underline hover:no-underline h-full flex flex-col group"
+>
+  {image && (
+    <div class="aspect-segment overflow-hidden bg-bg-tint">
+      <img
+        src={image}
+        alt={imageAlt}
+        class="w-full h-full object-cover transition-transform duration-slow ease-out-quart group-hover:scale-[1.03]"
+        loading="lazy"
+        width="800"
+        height="600"
+      />
+    </div>
+  )}
+  <div class="p-6 md:p-8 flex flex-col flex-1">
+    {eyebrow && <p class="eyebrow mb-2 text-bush-gold-600">{eyebrow}</p>}
+    <h3 class="font-display font-bold text-h3 md:text-h3-lg leading-tight text-ink">
+      {title}
+    </h3>
+    {positioning && (
+      <p class="mt-2 text-body-sm font-semibold text-eucalypt">{positioning}</p>
+    )}
+    <p class="mt-4 text-body text-text-muted">{body}</p>
+    <p class="mt-6 text-body-sm font-display font-semibold text-ink flex items-center gap-2 group-hover:text-bush-gold-600 transition-colors">
+      Read more
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform group-hover:translate-x-1">
+        <line x1="5" y1="12" x2="19" y2="12" />
+        <polyline points="12 5 19 12 12 19" />
+      </svg>
+    </p>
+  </div>
+</a>

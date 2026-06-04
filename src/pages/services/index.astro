@@ -1,0 +1,71 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import CardSegment from '@components/CardSegment.astro';
+
+const title = 'Services — biological farming, forest management, carbon, water';
+const description = 'Australian biological farming consultancy and project services. Soil health, forest and biomass management, carbon farming and ACCU scoping, water treatment.';
+
+const services = [
+  {
+    title: 'Agronomy & biological farming',
+    eyebrow: 'Consulting',
+    positioning: 'A qualified agronomist who leads with soil biology.',
+    body: 'Full agronomic scope — soil testing, nutrient programs, system design, paddock-by-paddock implementation. Biology-first by preference, with the chemistry options on the table when the situation calls for them.',
+    href: '/services/biological-farming',
+    image: '/images/segments/biological-farming.jpg',
+    imageAlt: 'Hands-in-soil close-up showing dark earth with root mass',
+  },
+  {
+    title: 'Forest management',
+    eyebrow: 'Service',
+    positioning: 'Reforestation, biomass, shelterbelts, fire-load reduction.',
+    body: 'Managing your woodlots, shelterbelts and storm-debris streams — including converting them into biochar on-site via the flame-curtain method.',
+    href: '/services/forest-management',
+    image: '/images/segments/forest-management.jpg',
+    imageAlt: 'Australian eucalypt shelterbelt with morning light',
+  },
+  {
+    title: 'Carbon farming & ACCUs',
+    eyebrow: 'Service',
+    positioning: 'Scoping eligibility under the Emissions Reduction Fund.',
+    body: 'Helping you scope ACCU eligibility for soil-carbon and biochar-based projects under the Clean Energy Regulator framework.',
+    href: '/services/carbon-farming',
+    image: '/images/segments/carbon-farming.jpg',
+    imageAlt: 'Wide pasture with carbon-building soil under a cloudy sky',
+  },
+  {
+    title: 'Water treatment',
+    eyebrow: 'Service',
+    positioning: 'Stormwater, runoff, contamination, natural-pool design.',
+    body: 'Biochar filter media for stormwater systems, nutrient capture in runoff zones, and natural-pool design advisory.',
+    href: '/services/water-treatment',
+    image: '/images/segments/water-treatment.jpg',
+    imageAlt: 'Stormwater inlet with biochar filter media — illustrative',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+>
+  <Hero
+    layout="split"
+    eyebrow="Services & consulting"
+    heading="Qualified agronomy. Forest management. Carbon. Water."
+    lead="A qualified agronomist with the full scope of an agronomy practice — biology-first by preference, with the chemistry options on the table when the situation calls for them. Plus forest and biomass management, carbon-farming scoping, and water-treatment project work."
+    primaryCta={{ label: 'Book a consult', href: '/contact?subject=consult' }}
+    secondaryCta={{ label: 'See the biochar side', href: '/biochar' }}
+    image="/images/hero/services-pasture.jpg"
+    imageAlt="Luca walking a Central Victoria pasture with a biochar bucket"
+  />
+
+  <!-- Services grid -->
+  <Section container="wide" variant="tint" eyebrow="Four service tracks" heading="Pick the one that fits — or talk to us about scoping across all four." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      {services.map((s) => <CardSegment {...s} />)}
+    </div>
+  </Section>
+</BaseLayout>

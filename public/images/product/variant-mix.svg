@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="2 to 20 mm mix — image to be replaced with AI-generated product photography">
+  <defs>
+    <radialGradient id="vm" cx="50%" cy="40%" r="80%">
+      <stop offset="0%" stop-color="#3D4B36"/>
+      <stop offset="100%" stop-color="#0E0E0E"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#vm)"/>
+  <g fill="#D9A65A" font-family="Montserrat, system-ui, sans-serif" text-anchor="middle">
+    <text x="400" y="370" font-size="22" font-weight="600" letter-spacing="5" opacity="0.7">2 — 20 MM</text>
+    <text x="400" y="460" font-size="92" font-weight="800" letter-spacing="-3">Mix</text>
+    <text x="400" y="540" font-size="18" font-weight="500" opacity="0.5">Possible Agriculture Biochar</text>
+  </g>
+  <g fill="#D9A65A" opacity="0.3">
+    <rect x="340" y="240" width="22" height="20" rx="3" transform="rotate(8 351 250)"/>
+    <rect x="380" y="250" width="36" height="28" rx="4" transform="rotate(-12 398 264)"/>
+    <rect x="430" y="235" width="46" height="34" rx="5" transform="rotate(6 453 252)"/>
+    <rect x="362" y="285" width="28" height="22" rx="3" transform="rotate(-5 376 296)"/>
+    <rect x="412" y="290" width="40" height="30" rx="4" transform="rotate(10 432 305)"/>
+  </g>
+</svg>

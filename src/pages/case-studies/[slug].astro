@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+
+export async function getStaticPaths() {
+  const studies = await getCollection('case-studies');
+  return studies.map((s) => ({ params: { slug: s.slug }, props: { study: s } }));
+}
+
+const { study } = Astro.props;
+const { Content } = await study.render();
+const d = study.data;
+---
+
+<BaseLayout
+  title={`${d.title} — case study`}
+  description={d.subtitle ?? `${d.operation} case study, ${d.location}, ${d.year}. ${d.headlineMetric.value} ${d.headlineMetric.label}.`}
+  enquiryRailHeading="Want to run a similar trial on your operation?"
+  enquiryRailCta="Scope a trial"
+>
+  <!-- Hero -->
+  <section class="bg-bark on-dark min-h-[60vh] flex items-end overflow-hidden relative">
+    {
+      d.image && (
+        <div class="absolute inset-0">
+          <img
+            src={d.image}
+            alt={d.imageAlt ?? ''}
+            class="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-bark/95 via-bark/40 to-bark/10" aria-hidden="true" />
+        </div>
+      )
+    }
+    <div class="container-wide relative z-10 pb-12 md:pb-16 pt-32 md:pt-40">
+      <p class="eyebrow eyebrow-on-dark mb-3">Case study · {d.year}</p>
+      <h1 class="font-display font-extrabold text-h1 md:text-h1-lg leading-[1.05] text-balance max-w-4xl">{d.title}</h1>
+      {d.subtitle && <p class="mt-5 text-body-lg text-sky max-w-prose">{d.subtitle}</p>}
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="tag tag-dark">{d.operation}</span>
+        <span class="tag tag-dark">{d.location}</span>
+        <span class="tag tag-dark">{d.year}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Headline metric -->
+  <Section container="default" spacing="default">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="lg:col-span-1">
+        <ClaimCallout
+          value={d.headlineMetric.value}
+          label={d.headlineMetric.label}
+          shortCite={d.attribution}
+          variant="gold"
+          sublabel="Headline result"
+        />
+      </div>
+      <div class="lg:col-span-2 prose prose-pa">
+        {d.attribution && <p class="text-body-sm italic text-text-citation"><strong>Trial attribution:</strong> {d.attribution}</p>}
+        {d.productUsed && <p class="text-body-sm italic text-text-citation"><strong>Product used:</strong> {d.productUsed}</p>}
+        {d.bridgeNote && (
+          <p class="bg-bg-warm border border-rule rounded-md p-5 text-body-sm not-italic">
+            <strong>Bridge note:</strong> {d.bridgeNote}
+          </p>
+        )}
+      </div>
+    </div>
+  </Section>
+
+  <!-- Body content -->
+  <Section container="narrow" spacing="default">
+    <div class="prose prose-pa">
+      <Content />
+    </div>
+  </Section>
+
+  {
+    d.citation && (
+      <Section container="narrow" variant="tint" spacing="tight">
+        <p class="text-caption italic text-text-citation">
+          <strong>Source:</strong> {d.citation}
+        </p>
+      </Section>
+    )
+  }
+</BaseLayout>

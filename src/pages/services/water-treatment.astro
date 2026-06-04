@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import Citation from '@components/Citation.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Water treatment with biochar — stormwater, runoff, natural pools';
+const description = 'Biochar-based water treatment in Australia — stormwater filter media, runoff nutrient capture, contaminated-site remediation, natural-pool design advisory.';
+
+const faqs = [
+  {
+    q: 'Does it actually work on stormwater contaminants?',
+    a: 'For TSS, nitrate, phosphate, and many heavy metals, yes — and the data is strong. In stormwater column trials, biochar filter media reduced total suspended solids by 86%, nitrate by 86%, phosphate by 47%, and heavy metals by 18–75% <Citation claim="stormwater" />. For PFAS specifically, performance depends on the soil/water matrix — high-organic systems reduce removal efficiency.',
+  },
+  {
+    q: 'What does a biochar filter installation look like physically?',
+    a: 'Three typical forms. <strong>Filter sausages</strong> — biochar-filled mesh tubes placed across runoff zones or at stormwater inlets. <strong>Subsoil amendments</strong> — biochar mixed into the subsoil of a parkland or sports ground that\'s already filtering runoff. <strong>Inline media beds</strong> — a structured filter bed (usually layered with sand or gravel) integrated into an existing stormwater treatment train. Best fit depends on your hydraulics and contaminant profile.',
+  },
+  {
+    q: 'You mention natural pools — what\'s that?',
+    a: 'A separate topic, but related. A natural pool is a self-cleaning water body — a swim zone plus a planted regeneration zone — that produces drinking-quality water without chlorination. The same biology-first principles apply. See our <a href="/natural-pools">Natural Pools page</a> for the founder\'s view on this side project.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Got a stormwater problem, a runoff issue, or a remediation site?"
+  enquiryRailCta="Talk to us"
+>
+  <Hero
+    layout="split"
+    eyebrow="Service · Water"
+    heading="Biochar-based water treatment."
+    lead="Stormwater filter media, runoff nutrient capture, contaminated-site remediation, natural-pool design advisory. Same product line, different application — adapted to existing waterway management plans without large infrastructure investment."
+    primaryCta={{ label: 'Scope a water project', href: '/contact?subject=water-treatment' }}
+    image="/images/hero/water-treatment.jpg"
+    imageAlt="Stormwater runoff entering a vegetated infiltration zone"
+  />
+
+  <Section container="default" eyebrow="The numbers" heading="What biochar pulls out of water." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <ClaimCallout value="86%" label="TSS and nitrate removed in stormwater column trials." shortCite="ASCE study" sublabel="Stormwater filtration" />
+      <ClaimCallout value="47%" label="Phosphate removed in stormwater column trials." shortCite="ASCE study" sublabel="Phosphate" />
+      <ClaimCallout claim="pfasReduction" sublabel="PFAS in low-organic-matter soils" variant="gold" />
+    </div>
+  </Section>
+
+  <Section container="narrow" variant="tint" eyebrow="Applications" heading="Where biochar fits in a water project." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        From biochar filter "sausages" placed in runoff zones to biochar amendments in sports-ground subsoils that capture nutrient leaching before it reaches waterways, we can scope and supply for catchments of any size — without large infrastructure investment.
+      </p>
+      <p>
+        High-temperature activated wood biochars like ours adsorb and immobilise heavy metals (arsenic, cadmium, mercury) and have been shown to reduce PFAS leaching by up to 98–100% at 5% application in low-organic-matter soils <Citation claim="pfasReduction" />. Performance reduces in high-organic systems; for contaminated-site remediation we recommend a site-specific pilot trial.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

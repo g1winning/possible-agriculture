@@ -1,0 +1,54 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import { site } from '@lib/site';
+---
+
+<BaseLayout
+  title="Natural pools — Luca's side project in Central Victoria"
+  description="A natural pool is a self-cleaning farm dam — exponentially cheaper than a conventional pool as size increases, and a reservoir of pristine water for your farm. The founder's side project."
+  showEnquiryRail={false}
+>
+  <Hero
+    layout="overlay"
+    eyebrow="Side project · Founder voice"
+    heading="Natural pools — the rabbit-hole."
+    lead="A natural pool is a self-cleaning water body — a swim zone plus a planted regeneration zone — that produces drinking-quality water without chlorination. Exponentially cheaper than a conventional pool as size increases, and a reservoir of pristine water for your farm."
+    primaryCta={{ label: 'Email Luca about a pool', href: `mailto:${site.founder.email}?subject=Natural pool enquiry` }}
+    image="/images/hero/natural-pool.jpg"
+    imageAlt="Natural swimming pool in a Central Victoria farm setting at dusk"
+  />
+
+  <Section container="narrow" eyebrow="From Luca" heading="Why I get excited about natural pools." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        I get excited about natural pools on "agricultural land" because it is technically a farm dam and not subject to the regulatory complications of a swimming pool. That means you can build something at a scale that would be illegal as a pool — and the water stays drinkable for stock, irrigation, or you on a hot day.
+      </p>
+      <p>
+        The design principle is simple. Half the surface area is the swim zone — clean, deep, the part you actually use. The other half is the regeneration zone — shallow, planted with appropriate aquatic species, and structurally separated from the swim zone by a low underwater wall. Water moves between the two zones, and the plant biology in the regeneration zone does the same work that chlorine does in a conventional pool.
+      </p>
+      <p>
+        At small sizes — a backyard plunge pool — natural pools cost roughly what a conventional pool costs. The economics flip dramatically at scale. The largest natural pool I've come across in this space cost around $10,000 USD to build at a size that would have been six figures as a conventional pool. The maintenance is also dramatically lower — no chemicals to manage, no pump cycles to time.
+      </p>
+      <p>
+        On a farm with stock-water needs or fire-water reserve obligations, a natural pool can double as both — it preserves ~75% of total water as pristine reserve for the farm, plus the swim function. That's the case for the agricultural-land framing.
+      </p>
+      <p>
+        If you want to chase the rabbit-hole, start with David Pagan Butler's <em>Organic Pools</em> — the standard reference, and the source for most of the design thinking I've absorbed on this.
+      </p>
+      <p class="text-text-muted text-body-sm">— Luca</p>
+    </div>
+  </Section>
+
+  <Section container="narrow" variant="tint" eyebrow="Want to talk about a pool?" heading="The founder picks up." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        This is a side project, not a service line — but I'm happy to talk it through, especially if you've got an existing farm dam you're thinking of rehabilitating or a property where a natural-pool design might fit into the broader water system.
+      </p>
+      <p>
+        <a href={`mailto:${site.founder.email}?subject=Natural pool enquiry`}>{site.founder.email}</a> or call <a href={`tel:${site.founder.phoneTel}`}>{site.founder.phone}</a>.
+      </p>
+    </div>
+  </Section>
+</BaseLayout>

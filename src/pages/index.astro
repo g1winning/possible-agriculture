@@ -1,0 +1,128 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { site } from '@lib/site';
+
+const title = 'Possible Agriculture — Biochar and Services, Central Victoria';
+const description = 'Possible Agriculture — biochar supply, on-farm biochar production, and qualified agronomy consulting across Australia. Choose your starting point.';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  showEnquiryRail={false}
+  preloadImage="/images/hero/biochar-product.jpg"
+>
+  <!-- Brand intro -->
+  <section class="bg-paper">
+    <div class="container-wide pt-16 md:pt-24 pb-8 md:pb-12 text-center">
+      <p class="eyebrow mb-4">Possible Agriculture · Central Victoria</p>
+      <h1 class="font-display font-extrabold text-h1 md:text-h1-lg leading-tight text-balance max-w-3xl mx-auto">
+        Where would you like to start?
+      </h1>
+      <p class="mt-5 text-body-lg text-text-muted max-w-2xl mx-auto">
+        We work two ways. We supply Australian-made activated biochar by the cubic metre — and we consult on biological farming, forest management, carbon, and water.
+      </p>
+    </div>
+  </section>
+
+  <!-- Two-option gate -->
+  <section class="bg-paper pb-16 md:pb-24">
+    <div class="container-wide">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <!-- Biochar -->
+        <a
+          href="/biochar"
+          class="group relative rounded-xl overflow-hidden bg-bark no-underline card-lift block aspect-[4/5] md:aspect-[5/6] flex"
+        >
+          <img
+            src="/images/hero/biochar-product.jpg"
+            alt="Hands holding activated hardwood biochar on a Central Victoria pasture"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-slow ease-out-quart group-hover:scale-[1.03]"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="1200"
+            height="1500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-bark/95 via-bark/40 to-bark/10"
+            aria-hidden="true"
+          ></div>
+          <div class="relative z-10 self-end p-8 md:p-12 w-full on-dark">
+            <p class="eyebrow eyebrow-on-dark mb-3">Product</p>
+            <h2 class="font-display font-extrabold text-display md:text-display-lg !text-paper leading-none tracking-tight">
+              Biochar
+            </h2>
+            <p class="mt-5 text-body-lg text-sky max-w-md">
+              NATA-tested 88.6% carbon, Sugargum hardwood, sold by the cubic metre. Or produced on your land via our flame-curtain method.
+            </p>
+            <span class="mt-8 inline-flex items-center gap-2 font-display font-semibold text-bush-gold text-body group-hover:gap-3 transition-all">
+              Explore biochar
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Services -->
+        <a
+          href="/services"
+          class="group relative rounded-xl overflow-hidden bg-bark no-underline card-lift block aspect-[4/5] md:aspect-[5/6] flex"
+        >
+          <img
+            src="/images/hero/services-pasture.jpg"
+            alt="Luca walking a Central Victoria pasture, carrying a small bucket of biochar"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-slow ease-out-quart group-hover:scale-[1.03]"
+            loading="lazy"
+            decoding="async"
+            width="1200"
+            height="1500"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-bark/95 via-bark/40 to-bark/10"
+            aria-hidden="true"
+          ></div>
+          <div class="relative z-10 self-end p-8 md:p-12 w-full on-dark">
+            <p class="eyebrow eyebrow-on-dark mb-3">Consulting</p>
+            <h2 class="font-display font-extrabold text-display md:text-display-lg !text-paper leading-none tracking-tight">
+              Services
+            </h2>
+            <p class="mt-5 text-body-lg text-sky max-w-md">
+              Qualified agronomy across biological farming, forest management, carbon farming, water, and natural-pool design.
+            </p>
+            <span class="mt-8 inline-flex items-center gap-2 font-display font-semibold text-bush-gold text-body group-hover:gap-3 transition-all">
+              Explore services
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick contact strip -->
+  <section class="bg-bg-tint border-t border-rule">
+    <div class="container-wide py-10 md:py-14">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <p class="eyebrow mb-2">Or just call</p>
+          <p class="font-display font-bold text-h3 text-ink leading-tight">
+            <a href={`tel:${site.founder.phoneTel}`} class="!text-ink hover:!text-bush-gold-600">
+              {site.founder.phone}
+            </a>
+            <span class="text-text-muted font-normal text-body-lg ml-2">— Luca</span>
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="/contact" class="btn btn-primary">Send an enquiry</a>
+          <a href="/case-studies" class="btn btn-secondary">See the case studies</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

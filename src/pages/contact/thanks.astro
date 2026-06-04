@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import { site } from '@lib/site';
+---
+
+<BaseLayout
+  title="Thanks for your enquiry — Possible Agriculture"
+  description="Thanks for getting in touch — we'll come back to you within two business days."
+  showEnquiryRail={false}
+>
+  <Section container="narrow" spacing="loose">
+    <div class="text-center">
+      <div class="inline-flex w-16 h-16 rounded-full bg-bush-gold-100 items-center justify-center mb-6">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A6772F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+      <p class="eyebrow mb-4 text-bush-gold-600">Enquiry received</p>
+      <h1 class="font-display font-extrabold text-h1 md:text-h1-lg leading-tight text-balance">
+        Thanks — we'll be in touch within two business days.
+      </h1>
+      <p class="mt-6 text-body-lg text-text-muted max-w-prose mx-auto">
+        Your message is now sitting in Luca's inbox. If it's urgent — a delivery window, a trial timeline, a paddock visit — call directly.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href={`tel:${site.founder.phoneTel}`} class="btn btn-primary !min-h-[52px] !text-body">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          Call Luca on {site.founder.phone}
+        </a>
+        <a href="/" class="btn btn-secondary !min-h-[52px] !text-body">
+          Back to the homepage
+        </a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

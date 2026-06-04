@@ -1,0 +1,67 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  operation: string;
+  location: string;
+  year: number;
+  metric: { value: string; label: string };
+  attribution?: string;
+  productUsed?: string;
+  bridgeNote?: string;
+  image?: string;
+  imageAlt?: string;
+  href?: string;
+}
+
+const { title, subtitle, operation, location, year, metric, attribution, productUsed, bridgeNote, image, imageAlt, href } = Astro.props;
+
+const Tag = href ? 'a' : 'article';
+---
+
+<Tag
+  href={href}
+  class={`card-lift block rounded-xl overflow-hidden bg-paper border border-rule ${href ? 'no-underline hover:no-underline cursor-pointer' : ''} h-full flex flex-col`}
+>
+  {image && (
+    <div class="aspect-case overflow-hidden bg-bg-tint">
+      <img
+        src={image}
+        alt={imageAlt ?? ''}
+        class="w-full h-full object-cover"
+        loading="lazy"
+        width="1200"
+        height="800"
+      />
+    </div>
+  )}
+  <div class="p-6 md:p-8 flex flex-col flex-1">
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="tag">{operation}</span>
+      <span class="tag">{location}</span>
+      <span class="tag">{year}</span>
+    </div>
+
+    <h3 class="font-display font-bold text-h3 leading-tight text-ink">{title}</h3>
+    {subtitle && <p class="mt-2 text-body-sm text-text-muted">{subtitle}</p>}
+
+    <div class="mt-6 p-5 rounded-lg bg-bg-tint border border-rule">
+      <p class="font-display font-extrabold text-3xl md:text-4xl text-bush-gold-600 leading-none">
+        {metric.value}
+      </p>
+      <p class="mt-2 text-body-sm text-eucalypt font-semibold">{metric.label}</p>
+    </div>
+
+    {attribution && (
+      <p class="mt-4 text-caption italic text-text-citation">Trial: {attribution}</p>
+    )}
+    {productUsed && (
+      <p class="mt-1 text-caption italic text-text-citation">Product used: {productUsed}</p>
+    )}
+    {bridgeNote && (
+      <p class="mt-4 text-caption text-text-muted leading-relaxed bg-warm rounded-md p-3 border border-rule">
+        {bridgeNote}
+      </p>
+    )}
+  </div>
+</Tag>

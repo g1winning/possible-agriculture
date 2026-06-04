@@ -1,0 +1,56 @@
+---
+import { claims } from '@lib/claims';
+import type { ClaimId } from '@lib/claims';
+
+export interface Props {
+  /** Claim id from /lib/claims.ts. Looks up the full claim. */
+  claim?: ClaimId;
+  /** Manual value override, e.g., '88.6%'. */
+  value?: string;
+  /** Manual label override, when not using a registered claim. */
+  label?: string;
+  /** Manual short citation. */
+  shortCite?: string;
+  /** Visual variant. */
+  variant?: 'light' | 'dark' | 'gold';
+  /** Optional sub-label (e.g., 'NATA-accredited test'). */
+  sublabel?: string;
+}
+
+const { claim, value, label, shortCite, sublabel, variant = 'light' } = Astro.props;
+
+let v = value;
+let l = label;
+let s = shortCite;
+let sub = sublabel;
+
+if (claim) {
+  const c = claims[claim];
+  if (!c) throw new Error(`ClaimCallout: unknown claim id "${claim}"`);
+  v = v ?? c.value;
+  l = l ?? c.topic;
+  s = s ?? c.shortCite;
+  sub = sub;
+}
+
+const variantClass = {
+  light: 'bg-bg-tint border-rule text-ink',
+  dark: 'bg-bark border-white/10 text-paper',
+  gold: 'bg-bush-gold-50 border-bush-gold-200 text-ink',
+}[variant];
+---
+
+<div class={`p-6 md:p-8 rounded-xl border ${variantClass}`}>
+  <p
+    class={`font-display font-extrabold text-4xl md:text-5xl leading-none tracking-tight ${variant === 'dark' ? 'text-bush-gold' : variant === 'gold' ? 'text-ink' : 'text-ink'}`}
+  >
+    {v}
+  </p>
+  {sub && <p class={`mt-2 eyebrow ${variant === 'dark' ? 'eyebrow-on-dark' : ''}`}>{sub}</p>}
+  {l && <p class={`mt-3 text-body-sm ${variant === 'dark' ? 'text-sky' : 'text-text-muted'} max-w-prose`}>{l}</p>}
+  {s && (
+    <p class={`mt-4 text-caption italic ${variant === 'dark' ? 'text-sky' : 'text-text-citation'}`}>
+      Source: {s}
+    </p>
+  )}
+</div>

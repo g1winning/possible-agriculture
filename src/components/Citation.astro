@@ -1,0 +1,42 @@
+---
+import { claims } from '@lib/claims';
+import type { ClaimId } from '@lib/claims';
+
+export interface Props {
+  /** Claim id from /lib/claims.ts. */
+  claim: ClaimId;
+}
+
+const { claim } = Astro.props;
+const c = claims[claim];
+if (!c) {
+  throw new Error(`Citation: unknown claim id "${claim}". Check /src/lib/claims.ts.`);
+}
+---
+
+<span class="citation-wrap relative inline-block group">
+  <span class="citation" tabindex="0" aria-describedby={`cite-${c.id}`}>
+    ({c.shortCite})
+  </span>
+  <span
+    id={`cite-${c.id}`}
+    role="tooltip"
+    class="hidden group-hover:block group-focus-within:block absolute left-0 top-full mt-2 z-30 w-72 max-w-[80vw] p-4 bg-bark text-paper text-caption rounded-lg shadow-lg leading-relaxed"
+  >
+    <span class="block font-display font-semibold text-bush-gold mb-1">Source</span>
+    <span class="block">{c.fullCite}</span>
+    {c.sourceUrl && (
+      <a
+        href={c.sourceUrl}
+        target="_blank"
+        rel="noopener"
+        class="block mt-2 text-bush-gold underline underline-offset-2 break-all"
+      >
+        View source ↗
+      </a>
+    )}
+    {c.caveat && (
+      <span class="block mt-2 text-sky italic">{c.caveat}</span>
+    )}
+  </span>
+</span>

@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Forest management & silvaculture — Australian farms';
+const description = 'Silvaculture and forest management for Australian rural properties — reforestation, shelterbelts, fire-load reduction, and converting woody waste into biochar on-site via the flame-curtain method. Controlled pyrolysis, measured output.';
+
+const faqs = [
+  {
+    q: 'What kinds of properties is this for?',
+    a: 'Rural properties with woodlots, shelterbelts, paddock trees, or post-storm debris streams. From hobby farms with a single shelterbelt to large grazing properties with 100+ hectares of woody cover. The common factor is biomass on the ground or standing that could be doing more work for the operation.',
+  },
+  {
+    q: 'What does "fire-load reduction" actually mean in practice?',
+    a: 'Storm-ravaged trees and fallen limbs from across Victoria\'s Western District accumulate as fire hazards if left in place. Our work converts that biomass into biochar via the flame-curtain method — which is a controlled, low-emission pyrolysis process. The fire load goes down, the soil-carbon stockpile goes up.',
+  },
+  {
+    q: 'Can you produce biochar on my land?',
+    a: 'Yes — and it\'s usually the most cost-effective option if you have the woody-waste stream for it. The flame-curtain method requires open ground, a water source, and the wood. We bring the kiln, the process, and the safety setup. Output stays on your property, ready to use as a soil amendment or to sell.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Got a shelterbelt, woodlot, or storm-debris stream?"
+  enquiryRailCta="Talk to us"
+>
+  <Hero
+    layout="split"
+    eyebrow="Service · Silvaculture · Forest management"
+    heading="Silvaculture, forest and biomass management."
+    lead="Reforestation, shelterbelts, fire-load reduction, and converting woody waste into biochar on-site via the flame-curtain method. Controlled pyrolysis temperatures, measured carbon output, graded particle size. A liability on the paddock becomes a soil-carbon resource."
+    primaryCta={{ label: 'Talk about your property', href: '/contact?subject=forest-management' }}
+    image="/images/hero/forest-management.jpg"
+    imageAlt="Australian eucalypt shelterbelt at morning light with sheep in foreground"
+  />
+
+  <Section container="narrow" eyebrow="The work" heading="Three angles, one practice." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Forest management on an Australian rural property usually means three things at once. First, <strong>reforestation and shelterbelts</strong> — designing tree systems that produce shade, biomass, wind protection, and water-cycle benefits. Second, <strong>fire-load reduction</strong> — clearing accumulated storm debris and dropped limbs from existing woodlots. Third, <strong>biomass conversion</strong> — turning that woody material into biochar on-site rather than burning it, chipping it, or letting it sit as fuel.
+      </p>
+      <p>
+        We do all three. We can run a flame-curtain biochar production day on your property — converting your own woody waste into a soil-carbon resource you can use or sell — and we can advise on long-term shelterbelt design that produces ongoing biomass for future production days.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="narrow" variant="tint" eyebrow="Historical context" heading="An old idea, executed with modern combustion control." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Charred biomass as a soil amendment has a long history. The best-known example is the Amazonian <em>terra preta</em> soils — pre-Columbian carbon-enriched dark earths that retain their fertility centuries after the practice ended. Closer to home, Australian cultural burning produced measurable soil-carbon enrichment under repeated cool-fire regimes <a href="/library" class="text-bush-gold underline">(Davis et al., 2024)</a>.
+      </p>
+      <p>
+        Our flame-curtain method is a different process. Pyrolysis temperatures are controlled, the carbon content of the output is independently lab-tested, particle-size is graded for the intended use, and emissions are substantially lower than open-fire alternatives. The result is a measured, repeatable product — closer in character to industrial activated carbon than to a paddock burn.
+      </p>
+      <p>
+        The principle is old; the execution is industrial.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

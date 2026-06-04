@@ -1,0 +1,54 @@
+---
+export interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  onDark?: boolean;
+  size?: 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  onDark = false,
+  size = 'md',
+  type = 'button',
+  target,
+  rel,
+  ariaLabel,
+  class: extraClass = '',
+} = Astro.props;
+
+const variantClass = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  ghost: 'btn-ghost',
+}[variant];
+
+const sizeClass = size === 'lg' ? 'text-body !py-4 !px-7' : '';
+const onDarkClass = onDark ? 'btn-on-dark' : '';
+
+const classes = `btn ${variantClass} ${sizeClass} ${onDarkClass} ${extraClass}`.trim();
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      target={target}
+      rel={rel ?? (target === '_blank' ? 'noopener' : undefined)}
+      aria-label={ariaLabel}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={classes} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

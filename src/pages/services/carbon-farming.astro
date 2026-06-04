@@ -1,0 +1,70 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Carbon farming & ACCU scoping in Australia — Possible Agriculture';
+const description = 'Honest scoping of carbon-credit eligibility under the Emissions Reduction Fund — biochar, composting, soil-carbon and reforestation projects. Australian.';
+
+const faqs = [
+  {
+    q: 'What\'s the difference between "sequestered carbon" and a creditable emission reduction?',
+    a: 'They\'re distinct under Australian rules. <strong>Sequestered carbon</strong> means carbon stored in soil, biomass, or biochar — physically present, measurable, real. A <strong>creditable emission reduction</strong> (which generates ACCUs) is what the Clean Energy Regulator awards after assessing your project under an approved methodology. Many practices that <em>sequester</em> carbon don\'t generate ACCUs because the methodology either doesn\'t exist yet or your project doesn\'t map to it cleanly. We\'ll be honest about which bucket your situation falls into.',
+  },
+  {
+    q: 'What methodologies are biochar / composting / soil-carbon work eligible under?',
+    a: 'Biochar and composting are accepted methods for building soil carbon under the Australian framework. The specific methodology depends on your project type — typically <em>Soil Carbon</em>, <em>Carbon Farming Initiative</em>, or <em>Native Forest Management</em>, with varying requirements for baseline measurement, ongoing monitoring, and project permanence. We work alongside specialists who handle the formal methodology submission.',
+  },
+  {
+    q: 'What does scoping actually involve?',
+    a: 'A property visit and document review first — what you\'ve already done, what you\'re planning to do, what records exist. Then a written brief on which methodologies might apply, what the data and monitoring requirements look like, and a realistic view of whether the project is likely to be cost-effective once the registration, monitoring, and audit costs are accounted for. Some projects are clearly viable; some clearly aren\'t.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want a defensible scoping of what your project could earn?"
+  enquiryRailCta="Scope a project"
+>
+  <Hero
+    layout="split"
+    eyebrow="Service · Carbon farming"
+    heading="Carbon farming and ACCU scoping."
+    lead="If you've been building soil carbon, managing your forest, or running biochar on your operation, you may be able to participate in Australia's carbon market — but only with a project assessment by the Clean Energy Regulator. We help you scope eligibility honestly."
+    primaryCta={{ label: 'Scope a project', href: '/contact?subject=carbon-farming' }}
+    image="/images/hero/carbon-farming.jpg"
+    imageAlt="Wide pasture with carbon-building soil and shelterbelt in distance"
+  />
+
+  <Section container="default" eyebrow="The numbers" heading="What 1% of soil organic carbon represents." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ClaimCallout claim="soc1pCO2e" sublabel="CO₂-e sequestered per hectare" />
+      <ClaimCallout claim="soc1pWater" sublabel="Additional water-holding per acre" variant="gold" />
+    </div>
+    <p class="mt-8 text-body-sm italic text-text-muted max-w-prose">
+      Sequestered carbon is distinct from a creditable emission reduction under the ERF. Both numbers are real and measurable; only one of them generates ACCUs, and only after Clean Energy Regulator project assessment.
+    </p>
+  </Section>
+
+  <Section container="narrow" variant="tint" eyebrow="What we do" heading="The scoping work." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Compost and biochar systems are accepted methods for building soil carbon under the Australian carbon credit accreditation framework. If you've already implemented soil-carbon-building practices and want recognition for them, we can help you scope eligibility under the Emissions Reduction Fund and the Australian Carbon Credit Units (ACCUs) scheme.
+      </p>
+      <p>
+        Our work is the <strong>scoping</strong> end — figuring out which methodology might fit, what data and monitoring would be required, and whether the project is likely to be cost-effective once registration, monitoring, and audit costs are accounted for. The formal methodology submission is usually handled by an ACCU specialist; we work alongside them.
+      </p>
+      <p class="text-body-sm italic text-text-muted">
+        Credit eligibility depends on project assessment by the Clean Energy Regulator. We're not the regulator; we won't promise outcomes.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

@@ -1,0 +1,183 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import Citation from '@components/Citation.astro';
+import FAQ from '@components/FAQ.astro';
+import CardCase from '@components/CardCase.astro';
+
+const title = 'Biochar for cattle, dairy & feedlots in Australia';
+const description = 'Possible Agriculture Biochar as a feed additive — up to +2 L/cow/day in an Australian dairy trial, up to 25% live-weight gain in published cattle research. NATA-tested at 88.6% total carbon.';
+
+const faqs = [
+  {
+    q: 'Is your biochar safe in a feed ration?',
+    a: 'Yes — at the inclusion rates we recommend (0.6–1% of dietary DM for cattle, 1–2.5% for poultry, pigs, sheep). Our biochar is feed-grade activated hardwood biochar made from food-safe Australian Sugargum at high pyrolysis temperatures. We recommend introducing gradually over 7–10 days to allow the rumen to adapt.',
+  },
+  {
+    q: 'How does it actually work in the rumen?',
+    a: 'Two mechanisms. First, the porous biochar structure provides surface area for beneficial rumen microbes to colonise — which improves feed conversion. Second, biochar binds methane precursors in the rumen, which is why the published methane reductions are so substantial (22% biochar alone, 41% combined with potassium nitrate <Citation claim="methaneCombined" />). On top of both, biochar acts as a binder for mycotoxins and reduces digestive disturbance.',
+  },
+  {
+    q: 'Will the Rebbeck dairy result transfer to my operation?',
+    a: 'The Rebbeck trial used Mara Seeds Biochar — different feedstock, different pyrolysis profile to ours. Possible Agriculture Biochar is higher-grade hardwood at higher pyrolysis temperatures than the product used in that trial, so we expect <strong>equivalent or better results — replication pending</strong>. Site-specific results always vary by herd, ration and management. If you\'re running a trial we can help you design it so the data is actually useful.',
+  },
+  {
+    q: 'What about manure handling?',
+    a: 'Biochar makes on-farm composting more valuable: it preserves nitrogen and phosphorus that would otherwise volatilise or leach, while reducing odour. Apply to manure piles or compost windrows before spreading — the result is a more stable, slower-release nutrient amendment for paddocks and pastures.',
+  },
+  {
+    q: 'Can I claim carbon credits for this?',
+    a: 'Biochar production and composting are accepted methods for building soil carbon under the Australian framework. We can scope eligibility under the Emissions Reduction Fund and the ACCU scheme. <strong>Credit eligibility depends on project assessment by the Clean Energy Regulator</strong> — we\'ll be honest about what your specific situation supports.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want to trial biochar on your herd or in your feedlot?"
+  enquiryRailCta="Get a quote"
+>
+  <Hero
+    layout="overlay"
+    eyebrow="For farmers · For dairy operators · For feedlots"
+    heading="Biochar for cattle, dairy and feedlots."
+    lead="Better feed conversion. Lower enteric methane. Healthier soils when the manure comes back out. The published evidence is strong; the Australian dairy trial pointed at around +2 L/cow/day."
+    primaryCta={{ label: 'Get a quote or scope a trial', href: '/contact?subject=livestock-quote' }}
+    secondaryCta={{ label: 'See the research', href: '/library' }}
+    image="/images/hero/dairy-cattle-pasture.jpg"
+    imageAlt="Dairy cattle on Australian pasture at late afternoon"
+    trust={[
+      'Up to +2 L/cow/day (Rebbeck dairy trial)',
+      '22–41% methane reduction (published)',
+      '0.6–1% of dietary DM for cattle',
+    ]}
+  />
+
+  <!-- Dairy result -->
+  <Section
+    container="default"
+    eyebrow="Australian dairy trial"
+    heading="Around +2 L/cow/day in a four-dairy South Australian trial."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+      <div class="prose prose-pa">
+        <p>
+          In an Australian dairy trial across four South Australian dairies <Citation claim="milkYield" />, one dairy adding <strong>biochar at ~1% of the mixed ration reported around +2 L/cow/day in milk yield</strong>, +0.1 kg/day in solids, and ~$130k/year in additional profit on a 250-cow herd.
+        </p>
+        <p class="bg-bg-warm border border-rule rounded-md p-5 text-body-sm">
+          <strong>That trial used Mara Seeds Biochar.</strong> Possible Agriculture Biochar is a higher-grade hardwood biochar produced at higher pyrolysis temperatures than the product used in the trial, so <strong>we expect equivalent or better results — Possible Agriculture has not yet replicated the trial in its own product</strong>. Site-specific results vary by herd, ration and management.
+        </p>
+      </div>
+      <CardCase
+        title="Rebbeck, 2023 — South Australian dairy"
+        subtitle="Four-dairy trial, biochar at ~1% of mixed ration"
+        operation="Dairy"
+        location="South Australia"
+        year={2023}
+        metric={{ value: '~+2 L/cow/day', label: 'Milk yield increase (one of four dairies)' }}
+        attribution="Rebbeck (2023) — published case study"
+        productUsed="Mara Seeds Biochar"
+        bridgeNote="Possible Agriculture Biochar is higher-grade hardwood at higher pyrolysis temperature; we expect equivalent or better results, replication pending."
+      />
+    </div>
+  </Section>
+
+  <!-- Cattle / methane -->
+  <Section
+    container="default"
+    variant="tint"
+    eyebrow="Cattle research"
+    heading="Feed efficiency, live-weight gain, and methane."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <ClaimCallout claim="liveWeightGain" sublabel="Live-weight gain (cattle, 0.6% DM)" />
+      <ClaimCallout claim="methaneAlone" sublabel="Methane reduction — biochar alone" />
+      <ClaimCallout claim="methaneCombined" sublabel="Methane reduction — biochar + KNO₃" variant="gold" />
+    </div>
+    <div class="mt-10 prose prose-pa">
+      <p>
+        In a published cattle trial on a cassava-based ration (Leng & Preston), adding biochar at <strong>0.6% of dietary dry matter increased live-weight gain by 25%</strong> and improved feed-conversion ratio from 23.2 to 19.1. The trial also recorded a <strong>22% reduction in enteric methane</strong> from biochar alone, and a <strong>41% reduction</strong> when biochar was combined with potassium nitrate as a non-protein nitrogen source.
+      </p>
+      <p class="text-text-muted italic text-body-sm">
+        Caveat: that trial used rice-husk biochar at 900°C. Possible Agriculture Biochar is hardwood at high pyrolysis temperature — the high-temperature property transfers, the feedstock differs. Site-specific results vary by ration and stock class.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Application rates -->
+  <Section
+    container="default"
+    eyebrow="Application rates"
+    heading="Inclusion rates by stock class."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="eyebrow text-bush-gold-600">Cattle</p>
+        <p class="mt-2 font-display font-extrabold text-3xl text-ink">0.6–1%</p>
+        <p class="mt-2 text-body-sm font-semibold text-eucalypt">of dietary dry matter</p>
+        <p class="mt-4 text-body text-text-muted">Mixed into the ration. Introduce gradually over 7–10 days.</p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="eyebrow text-bush-gold-600">Poultry, pigs, sheep</p>
+        <p class="mt-2 font-display font-extrabold text-3xl text-ink">1–2.5%</p>
+        <p class="mt-2 text-body-sm font-semibold text-eucalypt">of feed</p>
+        <p class="mt-4 text-body text-text-muted">Per general feed-supplement research; species-specific guidance on request.</p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="eyebrow text-bush-gold-600">Soil & manure</p>
+        <p class="mt-2 font-display font-extrabold text-3xl text-ink">5–15%</p>
+        <p class="mt-2 text-body-sm font-semibold text-eucalypt">by volume in compost</p>
+        <p class="mt-4 text-body text-text-muted">Applied to manure piles or compost windrows to preserve N&P and reduce odour.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Composting / manure -->
+  <Section
+    container="narrow"
+    eyebrow="Manure handling"
+    heading="Biochar in your composting and manure system."
+    spacing="default"
+  >
+    <div class="prose prose-pa">
+      <p>
+        Biochar makes on-farm composting more valuable. It preserves the nitrogen and phosphorus that would otherwise volatilise into the atmosphere or leach into groundwater — while reducing odour at the same time. Apply biochar to manure piles or compost windrows before spreading; the result is a more stable, slower-release nutrient amendment for paddocks and pastures.
+      </p>
+      <p>
+        For mixed operations with livestock and crops, this closes the nutrient loop — manure-biochar compost replaces purchased fertiliser inputs while building durable soil carbon at the same time.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Carbon / ACCU -->
+  <Section
+    container="default"
+    variant="dark"
+    eyebrow="Carbon, grants and ACCUs"
+    heading="If you're building soil carbon, you may be able to monetise it."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div class="lg:col-span-2 prose prose-pa prose-invert">
+        <p class="text-paper">
+          Composting and biochar production are accepted methods for building soil carbon under the Australian carbon credit accreditation framework. If you've already implemented soil-carbon-building practices and want recognition for them, we can help you scope eligibility under the <strong>Emissions Reduction Fund</strong> and the <strong>Australian Carbon Credit Units (ACCUs)</strong> scheme.
+        </p>
+        <p class="text-sky">
+          Credit eligibility depends on project assessment by the Clean Energy Regulator. We'll be honest about what your specific situation supports.
+        </p>
+      </div>
+      <ClaimCallout claim="soc1pCO2e" variant="dark" sublabel="1% SOC equivalent" />
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

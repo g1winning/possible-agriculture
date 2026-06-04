@@ -1,0 +1,328 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import CardSegment from '@components/CardSegment.astro';
+import Citation from '@components/Citation.astro';
+import Button from '@components/Button.astro';
+import FAQ from '@components/FAQ.astro';
+import QuadBullets from '@components/QuadBullets.astro';
+import Stamp from '@components/Stamp.astro';
+
+const title = 'Buy biochar in Australia — Possible Agriculture Biochar (88.6% C)';
+const description = 'Australian-made activated hardwood biochar. NATA-tested at 88.6% total carbon. Sugargum (E. cladocalyx). Powder, 2 mm granules, or 2–20 mm mix — sold by the cubic metre. Delivered loose by the truckload or on pallets.';
+
+const segments = [
+  {
+    title: 'Turf & golf',
+    eyebrow: 'For',
+    positioning: 'Less water, better roots, faster recovery.',
+    body: 'Application rates, USGA-compatibility framing, pilot trial offers for greens and fairways.',
+    href: '/biochar/turf-and-golf',
+    image: '/images/segments/golf-fairway.jpg',
+    imageAlt: 'Australian golf course fairway at golden hour',
+  },
+  {
+    title: 'Livestock & dairy',
+    eyebrow: 'For',
+    positioning: 'Feed efficiency, weight gain, methane.',
+    body: '0.6–1% of dietary DM for cattle. Up to +2 L/cow/day in an Australian dairy trial.',
+    href: '/biochar/livestock-and-dairy',
+    image: '/images/segments/dairy-cattle.jpg',
+    imageAlt: 'Dairy cattle on Australian pasture',
+  },
+  {
+    title: 'Councils & parklands',
+    eyebrow: 'For',
+    positioning: 'Stormwater, parkland water, carbon.',
+    body: 'PFAS and heavy-metal adsorption, stormwater filtration, parkland water savings.',
+    href: '/biochar/councils',
+    image: '/images/segments/councils-park.jpg',
+    imageAlt: 'Public parkland with mature eucalypts',
+  },
+  {
+    title: 'Farmers & feedlotters',
+    eyebrow: 'For',
+    positioning: 'Soil carbon, manure, ration.',
+    body: 'On-farm composting, manure stabilisation, ration inclusion, ACCU eligibility scoping.',
+    href: '/biochar/farmers',
+    image: '/images/segments/farm-paddock.jpg',
+    imageAlt: 'Australian mixed-farm paddock with cattle and shelterbelt',
+  },
+];
+
+const variants = [
+  {
+    title: 'Carbon powder',
+    use: 'Industrial process, pharmaceuticals, soil reclamation (PFAS, heavy metals, VOCs)',
+    spec: 'Fine powder, high surface area',
+    image: '/images/product/variant-powder.jpg',
+  },
+  {
+    title: '2 mm granules',
+    use: 'Row crops, potting mix, grasslands, dairy fodder, sports grounds, golf courses',
+    spec: 'Uniform 2 mm, dust-reduced',
+    image: '/images/product/variant-granules.jpg',
+  },
+  {
+    title: '2–20 mm mix',
+    use: 'Large-scale soil reclamation, water purification, capturing fertiliser runoff',
+    spec: 'Mixed grade, bulk delivered',
+    image: '/images/product/variant-mix.jpg',
+  },
+];
+
+const faqs = [
+  {
+    q: 'How is Possible Agriculture Biochar different from commodity char or charcoal fines?',
+    a: 'Three differences. First, the <strong>feedstock</strong> — we use sustainably sourced Australian Sugargum hardwood (<em>E. cladocalyx</em>), not waste byproduct from another industrial process. Second, the <strong>process</strong> — pyrolysis at high temperatures with rainwater activation, which produces the pore space and adsorptive surface area that drives every benefit. Third, the <strong>lab numbers</strong> — 88.6% total carbon, NATA-accredited test, among the highest reported in the biochar literature.',
+  },
+  {
+    q: 'How is it sold and delivered?',
+    a: 'By the cubic metre (m³). Delivered loose by the truckload for bulk applications, or on pallets in 1 m³ bulk bags for smaller orders. Pricing depends on order size and delivery zone — <a href="/contact?subject=biochar-quote">request a quote</a>.',
+  },
+  {
+    q: 'What application rate should I use?',
+    a: `It depends on the use. <strong>Turf:</strong> 1–2% by volume into the 0–4 cm root zone. <strong>Cattle ration:</strong> 0.6–1% of dietary dry matter. <strong>Poultry, pigs, sheep:</strong> 1–2.5% of feed. <strong>Soil amendment / row crops:</strong> 2–8% by mass. <strong>Compost / manure:</strong> 5–15% by volume in the windrow before turning. We can talk through what's right for your site.`,
+  },
+  {
+    q: 'Can I make biochar on my own farm using your method?',
+    a: "Yes — and on-farm, our flame-curtain method produces biochar at the lowest cost-per-cubic-metre of any method available in Australia, without a $500K+ industrial pyrolysis kiln. Best for farms with woody-waste streams (storm debris, shelterbelt residues, orchard prunings). We can run the process on your property, or train your team to run it. See it on our <a href='https://www.youtube.com/@PossibleAgriculture' target='_blank' rel='noopener'>YouTube channel</a>.",
+  },
+  {
+    q: 'Is the biochar safe for livestock feed?',
+    a: 'Yes — at the inclusion rates above. Our product is feed-grade activated biochar made from food-safe Australian hardwood at high pyrolysis temperatures. Published cattle research at 0.6–1% of dietary DM has reported live-weight gain increases and substantial methane reductions. <a href="/library">See the research in our library</a>. As with any feed change, we recommend introducing gradually over 7–10 days.',
+  },
+  {
+    q: "Do you have a minimum order?",
+    a: "Yes — practical minimums depend on whether you're taking loose by truckload (typically 10 m³+) or palletised (1 m³+). Send us the rough volume and your postcode and we'll come back with the most cost-effective option.",
+  },
+];
+
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Possible Agriculture Biochar',
+  description: 'Activated hardwood biochar (88.6% NATA-tested total carbon) for soil amendment, livestock feed, turf, and stormwater applications. Made in Central Victoria from sustainably sourced Sugargum.',
+  brand: { '@type': 'Brand', name: 'Possible Agriculture' },
+  category: 'Soil amendment',
+  manufacturer: { '@type': 'Organization', name: 'Possible Agriculture' },
+  countryOfOrigin: 'AU',
+  material: 'Sugargum (Eucalyptus cladocalyx) hardwood, pyrolysed and rainwater-activated',
+  offers: {
+    '@type': 'AggregateOffer',
+    priceCurrency: 'AUD',
+    priceSpecification: { '@type': 'UnitPriceSpecification', unitText: 'm³' },
+    availability: 'https://schema.org/InStock',
+    seller: { '@type': 'Organization', name: 'Possible Agriculture' },
+  },
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  schema={[productSchema]}
+  enquiryRailHeading="Ready for a price by the m³, or want to pilot biochar on your property?"
+  enquiryRailCta="Request a quote"
+>
+  <Hero
+    layout="split"
+    eyebrow="The product"
+    heading="Biochar — made by Possible Agriculture"
+    lead="Sustainably sourced Australian Sugargum (E. cladocalyx) hardwood, fired at high pyrolysis temperatures and quenched with rainwater. Independently lab-tested at 88.6% total carbon — among the highest carbon content reported in the published biochar literature. Sold by the cubic metre."
+    primaryCta={{ label: 'Request pricing & delivery', href: '/biochar/pricing' }}
+    secondaryCta={{ label: 'See the research', href: '/library' }}
+    image="/images/hero/biochar-product.jpg"
+    imageAlt="Possible Agriculture Biochar — granular activated hardwood biochar in close-up"
+    trust={[
+      '88.6% NATA-tested carbon',
+      'Sugargum hardwood, Central Victoria',
+      'Powder, 2 mm, or 2–20 mm mix',
+      'Loose by the truckload or palletised',
+    ]}
+  />
+
+  <!-- What it does -->
+  <Section
+    container="default"
+    eyebrow="What it does"
+    heading="A single soil amendment that pulls six levers at once."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-body text-text">
+      <ul class="space-y-3">
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Increases feed efficiency and reduces enteric methane in ruminants <Citation claim="methaneCombined" /></li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Improves soil structure, water-holding capacity and nutrient retention <Citation claim="waterHoldingSoil" /></li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Lifts crop yields, particularly in carbon-deficient Australian soils <Citation claim="plantProductivity" /></li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Stimulates beneficial microbial populations in the root zone</li>
+      </ul>
+      <ul class="space-y-3">
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Remediates contaminated soils — heavy metals and PFAS, with site-specific pilot <Citation claim="pfasReduction" /></li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Reduces non-CO₂ greenhouse-gas emissions from soils <Citation claim="noncoGHG" /></li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Builds long-term soil carbon stocks — biochar persists for decades to centuries</li>
+        <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Reduces nitrogen and phosphorus leaching from manure and fertiliser <Citation claim="nLeach" /></li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- How it's made -->
+  <Section
+    container="default"
+    variant="tint"
+    eyebrow="How it's made"
+    heading="Made from Australian native trees, in the ancient, traditional way."
+    spacing="loose"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div class="prose prose-pa">
+        <p>
+          Biochar is produced through <strong>pyrolysis</strong> — converting biomass in a high-temperature, low-oxygen environment into a stable, carbon-rich material that persists in soil for decades to centuries. Pyrolysis removes 70–80% of the biomass weight, creating the pore space that gives biochar its surface area (typically 100 m²/gram).
+        </p>
+        <p>
+          Charred-biomass soil amendment is not a new idea — the Amazonian <em>terra preta</em> soils are the best-known historical precedent, retaining their fertility centuries on. What's modern is the execution: controlled pyrolysis temperatures, a measured carbon-content output (88.6% NATA-tested), graded particle sizes, and substantially lower emissions than open-fire methods.
+        </p>
+        <p>
+          Our process uses <strong>sustainably sourced Australian Sugargum hardwood</strong> at high pyrolysis temperatures, with <strong>rainwater activation</strong> to maximise pore space and adsorptive ability. Hardwood feedstock + high temperature + water activation = highly adsorptive, acidity-resistant, long-lasting in soil, and supportive of beneficial microbial populations. This profile is what the peer-reviewed PFAS-remediation literature identifies as the most effective combination <Citation claim="pfasReduction" />.
+        </p>
+        <p>
+          Storm-ravaged trees and fallen limbs from farms across central Victoria — wood that would otherwise be fire hazards — are carefully slow-cooked in low-oxygen conditions, then quenched with rainwater. The result: a feed-grade activated hardwood biochar with one of the highest carbon contents reported in the literature.
+        </p>
+      </div>
+      <div class="bg-paper border border-rule rounded-xl overflow-hidden">
+        <div class="aspect-case bg-bg-tint">
+          <img
+            src="/images/hero/kiln-flame-curtain.jpg"
+            alt="The flame-curtain kiln in operation on a Central Victoria farm"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="1200"
+            height="800"
+          />
+        </div>
+        <div class="p-6 md:p-8">
+          <p class="eyebrow mb-2">On-farm production</p>
+          <h3 class="font-display font-bold text-h3 leading-tight">The flame-curtain method</h3>
+          <p class="mt-3 text-body text-text-muted">
+            On-farm, our flame-curtain method produces biochar at the <strong>lowest cost-per-cubic-metre of any method available in Australia</strong> — no $500K+ industrial pyrolysis kiln required. We help farmers convert woody-waste streams into a soil carbon resource on their own land.
+          </p>
+          <a href="https://www.youtube.com/@PossibleAgriculture" target="_blank" rel="noopener" class="mt-5 inline-flex items-center gap-2 text-body-sm font-display font-semibold text-eucalypt hover:text-bush-gold-600 transition-colors">
+            See it on YouTube
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7" />
+              <polyline points="7 7 17 7 17 17" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Product variants -->
+  <Section
+    container="wide"
+    eyebrow="Three grades"
+    heading="Powder, 2 mm granules, or 2–20 mm mix — depending on the job."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+      {
+        variants.map((v) => (
+          <div class="rounded-xl bg-paper border border-rule overflow-hidden flex flex-col card-lift">
+            <div class="aspect-product overflow-hidden bg-bg-tint">
+              <img
+                src={v.image}
+                alt={`${v.title} — Possible Agriculture Biochar product variant`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="800"
+                height="800"
+              />
+            </div>
+            <div class="p-6 md:p-8 flex flex-col flex-1">
+              <h3 class="font-display font-bold text-h3 text-ink">{v.title}</h3>
+              <p class="mt-2 text-body-sm font-semibold text-eucalypt">{v.spec}</p>
+              <p class="mt-4 text-body text-text-muted flex-1">{v.use}</p>
+              <a href="/biochar/pricing" class="mt-6 inline-flex items-center gap-2 text-body-sm font-display font-semibold text-ink hover:text-bush-gold-600 transition-colors">
+                Request a quote
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Segment links -->
+  <Section
+    container="wide"
+    variant="warm"
+    eyebrow="By audience"
+    heading="Four ways biochar gets used — explore the one that fits your operation."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      {segments.map((s) => <CardSegment {...s} />)}
+    </div>
+  </Section>
+
+  <!-- Brand promise quad -->
+  <Section container="default" spacing="default">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="eyebrow mb-3">The promise</p>
+        <h2 class="font-display font-bold text-h2 md:text-h2-lg leading-tight text-balance">
+          Every cubic metre we sell is meant to be these four things.
+        </h2>
+        <p class="mt-5 text-body-lg text-text-muted max-w-prose">
+          We don't sell commodity char. Storm-ravaged trees, slow-cooked in low oxygen, activated with rainwater — Australian-made, in the ancient way.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Stamp />
+        </div>
+      </div>
+      <QuadBullets align="right" />
+    </div>
+  </Section>
+
+  <!-- N & P leaching results table -->
+  <Section
+    container="default"
+    variant="dark"
+    eyebrow="The numbers"
+    heading="What biochar does to N and P leaching."
+    subheading="Reproduced from Huang et al. 2020 (IOP Conf. Ser.: Earth Environ. Sci. 424, 012015). All reductions significant at P<0.05."
+    spacing="default"
+  >
+    <div class="overflow-x-auto rounded-xl border border-white/10 bg-white/5">
+      <table class="w-full text-left text-paper">
+        <thead class="border-b border-white/15">
+          <tr>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">Biochar in soil</th>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">Total N leaching reduction</th>
+            <th class="px-6 py-4 font-display font-semibold text-body-sm uppercase tracking-wider text-sky">Total P leaching reduction</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/10 font-mono">
+          <tr><td class="px-6 py-4">2%</td><td class="px-6 py-4 text-bush-gold">17.6%</td><td class="px-6 py-4 text-bush-gold">26.0%</td></tr>
+          <tr><td class="px-6 py-4">4%</td><td class="px-6 py-4 text-bush-gold">24.7%</td><td class="px-6 py-4 text-bush-gold">12.0%</td></tr>
+          <tr><td class="px-6 py-4">6%</td><td class="px-6 py-4 text-bush-gold">30.6%</td><td class="px-6 py-4 text-bush-gold">15.7%</td></tr>
+          <tr><td class="px-6 py-4">8%</td><td class="px-6 py-4 text-bush-gold">37.7%</td><td class="px-6 py-4 text-bush-gold">19.7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-caption italic text-sky">
+      Optimal addition for combined TN+TP control: 8% by mass for N, 2% by mass for P. See the <a href="/library" class="text-bush-gold underline">Huang 2020 paper in the library</a>.
+    </p>
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

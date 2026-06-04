@@ -1,0 +1,262 @@
+---
+import { nav, site } from '@lib/site';
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/' || currentPath === '/home';
+  return currentPath === href || currentPath.startsWith(`${href}/`);
+}
+
+function isActiveBranch(item: { href: string; sub?: readonly { href: string }[] }): boolean {
+  if (isActive(item.href)) return true;
+  if (item.sub) return item.sub.some((s) => isActive(s.href));
+  return false;
+}
+---
+
+<header
+  class="sticky top-0 z-40 bg-paper/95 backdrop-blur-md border-b border-rule"
+  role="banner"
+>
+  <div class="container-wide">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <!-- Wordmark -->
+      <a
+        href="/"
+        class="flex items-baseline gap-2 no-underline text-ink hover:text-ink"
+        aria-label="Possible Agriculture — home"
+      >
+        <span class="font-display font-extrabold text-lg md:text-xl tracking-tight leading-none">
+          Possible Agriculture
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
+        {
+          nav.primary.map((item) => {
+            const active = isActiveBranch(item);
+            const baseClass = `px-3 py-2 text-body-sm font-display font-semibold no-underline rounded-md transition-colors duration-fast ease-out-quart ${
+              active
+                ? 'text-ink bg-bg-tint'
+                : 'text-text-muted hover:text-ink hover:bg-bg-tint'
+            }`;
+            if ('sub' in item && item.sub) {
+              return (
+                <div class="relative group nav-dropdown">
+                  <a
+                    href={item.href}
+                    class={`${baseClass} inline-flex items-center gap-1`}
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {item.label}
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      class="transition-transform duration-fast group-hover:rotate-180"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </a>
+                  <div
+                    class="absolute left-0 top-full pt-2 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-fast ease-out-quart"
+                    role="menu"
+                  >
+                    <div class="bg-paper border border-rule rounded-xl shadow-lg p-2 overflow-hidden">
+                      {item.sub.map((s) => (
+                        <a
+                          href={s.href}
+                          class={`block px-4 py-3 rounded-md no-underline transition-colors ${
+                            isActive(s.href)
+                              ? 'bg-bg-tint'
+                              : 'hover:bg-bg-tint'
+                          }`}
+                          role="menuitem"
+                        >
+                          <span class="block font-display font-semibold text-body-sm text-ink">{s.label}</span>
+                          {s.description && (
+                            <span class="block mt-0.5 text-caption text-text-muted">{s.description}</span>
+                          )}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <a
+                href={item.href}
+                class={baseClass}
+                aria-current={active ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+        <a
+          href={`tel:${site.founder.phoneTel}`}
+          class="ml-2 btn btn-primary !min-h-[40px] !py-2 !px-4 text-body-sm"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          {site.founder.phone}
+        </a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        class="lg:hidden p-2 -mr-2 rounded-md text-ink hover:bg-bg-tint transition-colors"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        id="mobile-menu-btn"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden border-t border-rule bg-paper max-h-[calc(100dvh-4rem)] overflow-y-auto"
+    aria-label="Primary mobile"
+  >
+    <div class="container-wide py-6">
+      <ul class="flex flex-col gap-1">
+        {
+          nav.primary.map((item) => {
+            const active = isActiveBranch(item);
+            if ('sub' in item && item.sub) {
+              return (
+                <li>
+                  <details class="group">
+                    <summary class={`flex items-center justify-between px-4 py-3 rounded-md text-body font-display font-semibold cursor-pointer list-none ${
+                      active ? 'text-ink bg-bg-tint' : 'text-text-muted hover:text-ink hover:bg-bg-tint'
+                    }`}>
+                      <span>{item.label}</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform group-open:rotate-180">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </summary>
+                    <ul class="mt-1 ml-4 pl-4 border-l border-rule flex flex-col gap-1">
+                      {item.sub.map((s) => (
+                        <li>
+                          <a
+                            href={s.href}
+                            class={`block px-3 py-2 rounded-md text-body-sm no-underline ${
+                              isActive(s.href)
+                                ? 'text-ink bg-bg-tint font-semibold'
+                                : 'text-text-muted hover:text-ink hover:bg-bg-tint'
+                            }`}
+                            aria-current={isActive(s.href) ? 'page' : undefined}
+                          >
+                            <span class="font-display font-semibold block">{s.label}</span>
+                            {s.description && (
+                              <span class="block text-caption text-text-muted mt-0.5">{s.description}</span>
+                            )}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </li>
+              );
+            }
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class={`block px-4 py-3 rounded-md text-body font-display font-semibold no-underline ${
+                    active
+                      ? 'text-ink bg-bg-tint'
+                      : 'text-text-muted hover:text-ink hover:bg-bg-tint'
+                  }`}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <div class="mt-6 pt-6 border-t border-rule flex flex-col gap-3">
+        <a href={`tel:${site.founder.phoneTel}`} class="btn btn-primary w-full">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          Call Luca on {site.founder.phone}
+        </a>
+        <a href="/contact" class="btn btn-secondary w-full">Get a quote</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden');
+      menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      btn.setAttribute('aria-label', !isOpen ? 'Close menu' : 'Open menu');
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      }
+    });
+
+    // Close mobile menu when a link inside it is clicked (so navigation feels natural)
+    menu.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (target && target.tagName === 'A') {
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // Desktop dropdowns: expose aria-expanded as the dropdown opens via :hover/:focus-within
+  // (hover is purely visual; for keyboard users, the focus-within path opens the menu).
+  const dropdowns = document.querySelectorAll('.nav-dropdown > a');
+  dropdowns.forEach((trigger) => {
+    const parent = trigger.parentElement;
+    if (!parent) return;
+    parent.addEventListener('focusin', () => trigger.setAttribute('aria-expanded', 'true'));
+    parent.addEventListener('focusout', (e) => {
+      // Only collapse if focus actually left the dropdown subtree
+      requestAnimationFrame(() => {
+        if (!parent.contains(document.activeElement)) {
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+</script>

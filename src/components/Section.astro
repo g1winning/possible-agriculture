@@ -1,0 +1,94 @@
+---
+export interface Props {
+  /** Eyebrow label above the heading. */
+  eyebrow?: string;
+  /** Section heading (renders as h2 unless `as` overridden). */
+  heading?: string;
+  /** Optional sub-heading paragraph rendered in body-lg. */
+  subheading?: string;
+  /** Container width — defaults to 'default'. */
+  container?: 'prose' | 'narrow' | 'default' | 'wide' | 'full';
+  /** Visual variant. */
+  variant?: 'light' | 'tint' | 'warm' | 'dark';
+  /** Spacing scale. */
+  spacing?: 'tight' | 'default' | 'loose';
+  /** Heading element. */
+  as?: 'h1' | 'h2' | 'h3';
+  /** Whether to centre the header (eyebrow + heading + subhead). */
+  centered?: boolean;
+  /** Optional id for in-page anchoring. */
+  id?: string;
+  /** Extra classes on the outer section. */
+  class?: string;
+}
+
+const {
+  eyebrow,
+  heading,
+  subheading,
+  container = 'default',
+  variant = 'light',
+  spacing = 'default',
+  as = 'h2',
+  centered = false,
+  id,
+  class: extraClass = '',
+} = Astro.props;
+
+const Heading = as;
+
+const containerClass = {
+  prose: 'container-prose',
+  narrow: 'container-narrow',
+  default: 'container-default',
+  wide: 'container-wide',
+  full: 'w-full px-5 md:px-8',
+}[container];
+
+const variantClass = {
+  light: 'bg-paper text-text',
+  tint: 'bg-bg-tint text-text',
+  warm: 'bg-bg-warm text-text',
+  dark: 'bg-bark on-dark',
+}[variant];
+
+const spacingClass = {
+  tight: 'py-12 md:py-16',
+  default: 'py-16 md:py-24',
+  loose: 'py-24 md:py-32',
+}[spacing];
+
+const headingSizeClass = {
+  h1: 'text-h1 md:text-h1-lg',
+  h2: 'text-h2 md:text-h2-lg',
+  h3: 'text-h3 md:text-h3-lg',
+}[as];
+---
+
+<section
+  id={id}
+  class={`${variantClass} ${spacingClass} ${extraClass}`}
+>
+  <div class={containerClass}>
+    {
+      (eyebrow || heading || subheading) && (
+        <header class={`${centered ? 'text-center mx-auto max-w-3xl' : 'max-w-3xl'} mb-12 md:mb-16`}>
+          {eyebrow && (
+            <p class={`eyebrow mb-3 ${variant === 'dark' ? 'eyebrow-on-dark' : ''}`}>{eyebrow}</p>
+          )}
+          {heading && (
+            <Heading class={`font-display font-bold ${headingSizeClass} text-balance leading-tight`}>
+              {heading}
+            </Heading>
+          )}
+          {subheading && (
+            <p class={`mt-5 text-body-lg ${variant === 'dark' ? 'text-sky' : 'text-text-muted'} max-w-prose`}>
+              {subheading}
+            </p>
+          )}
+        </header>
+      )
+    }
+    <slot />
+  </div>
+</section>

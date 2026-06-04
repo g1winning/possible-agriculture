@@ -1,0 +1,58 @@
+---
+export interface Props {
+  items: { q: string; a: string }[];
+  heading?: string;
+  /** Whether to emit FAQPage JSON-LD. Default true. */
+  schema?: boolean;
+}
+
+const { items, heading = 'Frequently asked questions', schema = true } = Astro.props;
+
+const faqSchema = schema
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: items.map((it) => ({
+        '@type': 'Question',
+        name: it.q,
+        acceptedAnswer: { '@type': 'Answer', text: it.a },
+      })),
+    }
+  : null;
+---
+
+<div>
+  {heading && (
+    <h2 class="font-display font-bold text-h2 md:text-h2-lg leading-tight mb-8 text-balance">
+      {heading}
+    </h2>
+  )}
+  <div class="divide-y divide-rule border-y border-rule">
+    {
+      items.map((it, i) => (
+        <details class="group py-5 md:py-6">
+          <summary class="cursor-pointer list-none flex justify-between items-start gap-6 hover:text-bush-gold-600 transition-colors">
+            <span class="font-display font-semibold text-body md:text-h4-lg text-ink group-hover:text-bush-gold-600 transition-colors">
+              {it.q}
+            </span>
+            <span
+              class="shrink-0 mt-1 w-7 h-7 rounded-full bg-bg-tint flex items-center justify-center text-ink group-open:rotate-45 transition-transform duration-base ease-out-quart"
+              aria-hidden="true"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 text-body text-text leading-relaxed max-w-prose">
+            <p set:html={it.a} />
+          </div>
+        </details>
+      ))
+    }
+  </div>
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  )}
+</div>

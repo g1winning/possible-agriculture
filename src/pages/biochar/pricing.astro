@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import EnquiryForm from '@components/EnquiryForm.astro';
+import FAQ from '@components/FAQ.astro';
+import Citation from '@components/Citation.astro';
+
+const title = 'Biochar pricing & delivery in Australia — Possible Agriculture';
+const description = 'How Possible Agriculture Biochar is priced — by the cubic metre, by grade, by delivery zone. Request a quote with your volume and postcode.';
+
+const faqs = [
+  {
+    q: 'Why isn\'t a price table published on this page?',
+    a: 'Because the right price depends on three things — your volume, your grade (powder, 2 mm, or 2–20 mm mix), and your delivery zone. A 1 m³ palletised order to a hobby farm is a different unit price from a 200 m³ loose-load delivery to a feedlot. We\'d rather give you the correct number on the first quote than publish a "from" price that doesn\'t apply to your situation.',
+  },
+  {
+    q: 'What are typical order sizes?',
+    a: '<strong>Hobby / small farm:</strong> 1–5 m³ palletised. <strong>Commercial farm / feedlot trial:</strong> 10–50 m³ loose-loaded. <strong>Golf course / council pilot:</strong> 5–20 m³. <strong>Large reclamation / stormwater project:</strong> 100 m³+ — usually quoted with delivery scheduled across multiple trucks.',
+  },
+  {
+    q: 'Where do you deliver to?',
+    a: 'Central Victoria is our home base — local delivery is the most cost-effective. We deliver across Victoria, NSW, SA and southern Queensland on a per-load basis; longer hauls are usually viable for orders 20 m³+. For interstate orders we\'ll quote a delivered price including freight.',
+  },
+  {
+    q: 'Can you produce biochar on my farm instead of shipping it?',
+    a: 'Yes — on-farm production using our flame-curtain method is often the most cost-effective option if you have woody-waste streams (storm debris, shelterbelt residues, orchard prunings). We can run the kiln on your property or train your team. <a href="/contact?subject=on-farm-production">Talk to us about an on-farm production day</a>.',
+  },
+  {
+    q: 'Do you offer bulk discounts?',
+    a: 'Yes — volume pricing for orders 50 m³+. We can also discuss multi-load schedules across a season if you\'re running a phased trial or amendment program.',
+  },
+  {
+    q: 'What\'s the lead time?',
+    a: 'Standard grades are typically held in inventory — most palletised orders ship within 5–7 business days. Larger loose-load deliveries are usually 2–3 weeks from order confirmation. Custom particle sizes or large reclamation orders may take longer.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Send us your volume and postcode — we'll come back with a delivered price."
+  enquiryRailCta="Request a quote"
+>
+  <Hero
+    layout="minimal"
+    eyebrow="Pricing & delivery"
+    heading="By the cubic metre. Quoted for your operation."
+    lead="The right price depends on what grade you need, how much, and where it goes. Tell us your volume and your postcode — we'll come back with a delivered quote, usually within two business days."
+    primaryCta={{ label: 'Request a quote', href: '#enquiry' }}
+    secondaryCta={{ label: 'See the product page', href: '/biochar' }}
+  />
+
+  <!-- How pricing works -->
+  <Section
+    container="default"
+    eyebrow="How pricing works"
+    heading="Three variables decide the unit price."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="font-display font-extrabold text-3xl text-bush-gold-600">1</p>
+        <h3 class="mt-3 font-display font-bold text-h3 text-ink">Volume</h3>
+        <p class="mt-3 text-body text-text-muted">
+          From 1 m³ palletised through to 200 m³+ on multi-truck loose-load schedules. Larger orders attract bulk pricing.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="font-display font-extrabold text-3xl text-bush-gold-600">2</p>
+        <h3 class="mt-3 font-display font-bold text-h3 text-ink">Grade</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Carbon powder, 2 mm granules, or 2–20 mm mix. Each has different production cost — and different uses.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <p class="font-display font-extrabold text-3xl text-bush-gold-600">3</p>
+        <h3 class="mt-3 font-display font-bold text-h3 text-ink">Delivery zone</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Central Victoria local is cheapest. Interstate freight is included in the quote — usually viable from 20 m³+.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- What pricing includes -->
+  <Section
+    container="default"
+    variant="tint"
+    eyebrow="What's included"
+    heading="What you actually get for the m³ price."
+    spacing="default"
+  >
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div class="prose prose-pa">
+        <h3>In every quote</h3>
+        <ul>
+          <li><strong>Australian-made activated biochar</strong> — Sugargum hardwood, NATA-tested 88.6% C, made in Central Victoria.</li>
+          <li><strong>Delivery</strong> to your specified address (or pickup if you'd rather collect).</li>
+          <li><strong>Application-rate guidance</strong> for your specific use case — turf, livestock, soil, or stormwater.</li>
+          <li><strong>The lab report</strong> for the production batch you receive, on request.</li>
+        </ul>
+      </div>
+      <div class="prose prose-pa">
+        <h3>Available as add-ons</h3>
+        <ul>
+          <li><strong>Pilot-trial design</strong> — single green, single paddock, single feedlot pen — to validate before scaling.</li>
+          <li><strong>On-farm production</strong> via our flame-curtain method, if you have woody-waste streams.</li>
+          <li><strong>Carbon-farming scoping</strong> — assessing ACCU eligibility under the Emissions Reduction Fund <Citation claim="soc1pCO2e" />.</li>
+          <li><strong>Composting integration</strong> — biochar-amended compost windrows for manure-heavy operations.</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Enquiry form -->
+  <Section
+    id="enquiry"
+    container="narrow"
+    eyebrow="Request a quote"
+    heading="Send us the brief — we'll come back with a delivered price."
+    subheading="Aim for: rough volume, intended use, your postcode, and any timing. We reply within two business days."
+    spacing="default"
+  >
+    <EnquiryForm
+      subject="Biochar pricing & delivery — quote request"
+      heading="Biochar quote"
+      intro="Most people don't have the volume nailed down on the first message — a rough estimate is fine. We'll work it out together."
+    />
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" variant="tint" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

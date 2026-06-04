@@ -1,0 +1,19 @@
+---
+export interface Props {
+  /** Tailwind typography size scale. */
+  size?: 'sm' | 'base' | 'lg';
+  class?: string;
+}
+
+const { size = 'base', class: extraClass = '' } = Astro.props;
+
+const sizeClass = {
+  sm: 'prose-sm',
+  base: 'prose-base',
+  lg: 'prose-lg',
+}[size];
+---
+
+<div class={`prose ${sizeClass} prose-pa max-w-prose ${extraClass}`}>
+  <slot />
+</div>

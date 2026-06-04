@@ -1,0 +1,44 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import { legacyRedirects } from '@lib/site';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="That page isn't here — but we probably have what you were looking for."
+  showEnquiryRail={false}
+>
+  <Section container="narrow" spacing="loose">
+    <div class="text-center">
+      <p class="eyebrow mb-4">404</p>
+      <h1 class="font-display font-extrabold text-h1 md:text-h1-lg leading-tight text-balance">
+        That page isn't here.
+      </h1>
+      <p class="mt-6 text-body-lg text-text-muted max-w-prose mx-auto">
+        The website was rebuilt and some old URLs moved — if you came in on a bookmark, try one of the links below. Or call Luca and we'll find what you were after.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href="/" class="btn btn-primary !min-h-[52px] !text-body">Homepage</a>
+        <a href="/biochar" class="btn btn-secondary !min-h-[52px] !text-body">Biochar</a>
+        <a href="/contact" class="btn btn-secondary !min-h-[52px] !text-body">Contact</a>
+      </div>
+    </div>
+
+    <div class="mt-16 max-w-2xl mx-auto bg-bg-tint border border-rule rounded-xl p-6 md:p-8">
+      <h2 class="font-display font-bold text-h3 text-ink">If you came in on an old link</h2>
+      <p class="mt-3 text-body text-text-muted">A few of the older URLs are now in new places:</p>
+      <ul class="mt-4 flex flex-col gap-2 text-body-sm">
+        {
+          legacyRedirects.map((r) => (
+            <li class="flex flex-col sm:flex-row sm:items-center gap-2">
+              <code class="font-mono text-caption text-text-muted">{r.from}</code>
+              <span class="hidden sm:inline" aria-hidden="true">→</span>
+              <a href={r.to} class="font-display font-semibold text-ink hover:text-bush-gold-600">{r.to}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+</BaseLayout>

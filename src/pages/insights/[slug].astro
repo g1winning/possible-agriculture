@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('insights', ({ data }) => !data.draft);
+  return items.map((item) => ({ params: { slug: item.slug }, props: { item } }));
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+const d = item.data;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: d.publishedAt.toISOString(),
+  ...(d.updatedAt && { dateModified: d.updatedAt.toISOString() }),
+  author: { '@type': 'Person', name: 'Luca Brew' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Possible Agriculture',
+  },
+  ...(d.image && { image: d.image }),
+};
+---
+
+<BaseLayout
+  title={`${d.title} | Insights`}
+  description={d.description}
+  ogImage={d.image}
+  schema={[articleSchema]}
+>
+  <article>
+    <header class="bg-paper">
+      <div class="container-narrow pt-12 md:pt-20 pb-8">
+        <p class="eyebrow text-bush-gold-600 mb-4">
+          Insights · {new Date(d.publishedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
+          {d.readingTime && <span> · {d.readingTime}</span>}
+        </p>
+        <h1 class="font-display font-extrabold text-h1 md:text-h1-lg leading-tight text-balance">{d.title}</h1>
+        <p class="mt-5 text-body-lg text-text-muted">{d.description}</p>
+      </div>
+    </header>
+
+    {
+      d.image && (
+        <div class="container-wide">
+          <div class="rounded-xl overflow-hidden bg-bg-tint aspect-hero">
+            <img src={d.image} alt={d.imageAlt ?? ''} class="w-full h-full object-cover" loading="eager" />
+          </div>
+        </div>
+      )
+    }
+
+    <Section container="narrow" spacing="default">
+      <div class="prose prose-pa">
+        <Content />
+      </div>
+    </Section>
+  </article>
+</BaseLayout>

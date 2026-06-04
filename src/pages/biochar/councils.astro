@@ -1,0 +1,166 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import ClaimCallout from '@components/ClaimCallout.astro';
+import Citation from '@components/Citation.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Biochar for councils — stormwater, parklands, sports grounds';
+const description = 'Biochar for local government: stormwater filtration, greenspace water savings, contaminant adsorption, soil carbon. Australian-made by Possible Agriculture, NATA-tested at 88.6% total carbon.';
+
+const benefits = [
+  {
+    finding: '12–50%',
+    label: 'non-CO₂ GHG emissions reduction',
+    detail: 'N₂O and CH₄ from amended soils. Joseph et al., 2021.',
+  },
+  {
+    finding: '17–39%',
+    label: 'heavy-metal uptake reduction',
+    detail: 'In plant tissue from biochar-amended contaminated soils.',
+  },
+  {
+    finding: '86% / 86% / 47%',
+    label: 'TSS / nitrate / phosphate removed',
+    detail: 'Stormwater column trials with biochar filter media (ASCE).',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Where can biochar fit into a council\'s asset list?',
+    a: '<strong>Stormwater systems</strong> (biochar filter "sausages" in runoff zones, in-line filter media), <strong>parklands and sports grounds</strong> (root-zone amendment for water-savings and compaction), <strong>street tree pits</strong> (water-holding + nutrient retention for newly planted trees), <strong>landfill and contaminated-site remediation</strong> (heavy-metal and PFAS adsorption), and <strong>composting programs</strong> (manure / green-waste stabilisation).',
+  },
+  {
+    q: 'How does it line up with our soil-carbon and emissions targets?',
+    a: 'Compost and biochar systems are accepted methods for building soil carbon under the Australian carbon credit accreditation framework. Each 1% increase in soil organic carbon sequesters approximately 165 t CO₂-e per hectare <Citation claim="soc1pCO2e" /> — but sequestered carbon is distinct from a creditable emission reduction under the Emissions Reduction Fund. We can scope what your specific situation supports for ACCU project assessment.',
+  },
+  {
+    q: 'How does this fit our procurement process?',
+    a: 'We supply by the cubic metre with delivery scheduled to your timetable, and we\'ll provide the NATA-accredited lab report for the production batch on request. For larger contracts we can set up a phased delivery schedule across a financial year. <a href="/contact?subject=council-procurement">Talk to us about a procurement-ready quote</a>.',
+  },
+  {
+    q: 'Can we run a pilot trial on one parkland before going site-wide?',
+    a: 'Strongly recommended — and we\'ll help you design it. A typical pilot looks at a single parkland or one street-tree precinct, runs across one full irrigation cycle, and measures water savings, plant performance, and any compaction or drainage effects. We can scope the trial design and supply the biochar for it.',
+  },
+  {
+    q: 'What about PFAS — is biochar a real remediation option?',
+    a: 'Yes, for low-organic-matter soils. <Citation claim="pfasReduction" /> shows up to 98–100% PFAS leaching reduction at 5% activated biochar inclusion in low-organic soils (Sørmo et al., 2021, <em>Science of the Total Environment</em>). Performance reduces in soils with high organic matter, so we always recommend a site-specific pilot trial before any contaminated-site application.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want to scope a parkland pilot, a stormwater retrofit, or a soil-carbon project?"
+  enquiryRailCta="Talk to us"
+>
+  <Hero
+    layout="overlay"
+    eyebrow="For councils · For LGAs · For greenspace managers"
+    heading="Biochar for councils, parklands and urban greenspaces."
+    lead="One Australian-made soil amendment for water restrictions, contamination concerns, soil-carbon targets, and rising maintenance costs across sports grounds, parklands, road verges and stormwater systems."
+    primaryCta={{ label: 'Scope a project', href: '/contact?subject=council-quote' }}
+    secondaryCta={{ label: 'See the research', href: '/library' }}
+    image="/images/hero/parkland-eucalypts.jpg"
+    imageAlt="Public parkland with mature eucalypts and managed turf"
+    trust={[
+      '88.6% NATA-tested carbon',
+      'Australian Sugargum hardwood',
+      'Sold by the cubic metre',
+      'Pilot-trial design on one site',
+    ]}
+  />
+
+  <!-- Intro -->
+  <Section
+    container="narrow"
+    eyebrow="The brief"
+    heading="A defensible case for a council briefing."
+    subheading="Local government managers are balancing water restrictions, contamination concerns, soil-carbon targets, and rising maintenance costs across sports grounds, parklands, road verges and stormwater systems. Biochar is a single amendment that contributes to all four. Australian-made from sustainably sourced hardwood, independently lab-tested, and supplied by the cubic metre."
+    spacing="default"
+  />
+
+  <!-- Save water -->
+  <Section container="default" variant="tint" eyebrow="Save water in greenspaces" heading="Up to 40% irrigation reduction in trials where applied." spacing="default">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+      <div class="prose prose-pa">
+        <p>
+          Woody biochar holds over 2.7× its dry weight in water <Citation claim="waterHoldingBiochar" /> and, at agriculturally meaningful mixture rates, can double the water-holding capacity of sandy soils <Citation claim="waterHoldingSoil" />.
+        </p>
+        <p>
+          In greenspace trials where Possible Agriculture Biochar has been applied, <strong>irrigation requirements have been reduced by up to 40%</strong> <Citation claim="irrigationSavings" />. Results vary by site, soil and rate.
+        </p>
+      </div>
+      <ClaimCallout claim="waterHoldingSoil" sublabel="Soil water-holding capacity" variant="gold" />
+    </div>
+  </Section>
+
+  <!-- Safeguard your soils -->
+  <Section container="narrow" eyebrow="Safeguard your soils" heading="Stormwater, contaminants, and the PFAS brief." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        High-temperature activated wood biochars like ours adsorb and immobilise heavy metals (arsenic, cadmium, mercury) and have been shown to <strong>reduce PFAS leaching by up to 98–100% at 5% application in low-organic-matter soils</strong> <Citation claim="pfasReduction" />.
+      </p>
+      <p>
+        In stormwater column trials, biochar filter media reduced total suspended solids by 86%, nitrate by 86%, and phosphate by 47% <Citation claim="stormwater" />. For contaminated-site remediation, we recommend a site-specific pilot trial — performance reduces in soils with high organic matter.
+      </p>
+    </div>
+  </Section>
+
+  <!-- Waterway management -->
+  <Section container="default" variant="dark" eyebrow="Waterway management" heading="A range of strategies that adapt to existing plans." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div class="prose prose-pa prose-invert">
+        <p class="text-paper">
+          From biochar filter "sausages" placed in runoff zones to biochar amendments in sports-ground subsoils that capture nutrient leaching before it reaches waterways, we can scope and supply for catchments of any size — without large infrastructure investment.
+        </p>
+      </div>
+      <div class="bg-white/5 rounded-xl border border-white/10 p-6 md:p-8">
+        <p class="eyebrow eyebrow-on-dark mb-3">Indicative applications</p>
+        <ul class="space-y-3 text-body text-paper">
+          <li class="flex gap-3"><span class="text-bush-gold">·</span>Biochar filter sausages in stormwater inlets</li>
+          <li class="flex gap-3"><span class="text-bush-gold">·</span>Subsoil amendment under sports grounds and ovals</li>
+          <li class="flex gap-3"><span class="text-bush-gold">·</span>Tree-pit amendment for street-tree water retention</li>
+          <li class="flex gap-3"><span class="text-bush-gold">·</span>Biochar–compost amendment for road verges</li>
+          <li class="flex gap-3"><span class="text-bush-gold">·</span>Landfill-cap and remediation-site amendment</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 1% SOC -->
+  <Section container="default" eyebrow="1% of soil organic carbon delivers" heading="What 1% SOC actually unlocks." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ClaimCallout claim="soc1pCO2e" sublabel="CO₂-e sequestered per hectare" />
+      <ClaimCallout claim="soc1pWater" sublabel="Additional water-holding per acre" variant="gold" />
+    </div>
+    <ul class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 text-body text-text">
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Enhanced biodiversity and microbial activity in the root zone.</li>
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>10–42% increase in plant productivity at 1% biochar application <Citation claim="plantProductivity" />.</li>
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Up to 4.6× increase in plant-available phosphorus <Citation claim="plantAvailableP" />.</li>
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>12–50% reduction in non-CO₂ GHG (N₂O + CH₄) from soils <Citation claim="noncoGHG" />.</li>
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>17–39% reduction in plant tissue heavy-metal concentrations <Citation claim="heavyMetals" />.</li>
+      <li class="flex gap-3"><span class="text-bush-gold-600 font-display font-bold">·</span>Sequestered carbon (not "emission reduction" — ACCU rules differ).</li>
+    </ul>
+  </Section>
+
+  <!-- Carbon credit eligibility -->
+  <Section container="narrow" variant="tint" eyebrow="Carbon credit eligibility" heading="ACCU pathway, on the level." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Compost and biochar systems are accepted methods for building soil carbon under the Australian carbon credit accreditation framework. We can advise on participating in the Emissions Reduction Fund (ERF) and earning Australian Carbon Credit Units (ACCUs).
+      </p>
+      <p class="text-body-sm italic text-text-muted">
+        Credit eligibility depends on project assessment by the Clean Energy Regulator. We'll be honest about what your specific project supports.
+      </p>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

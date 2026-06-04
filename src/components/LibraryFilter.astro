@@ -1,0 +1,111 @@
+---
+// Tag + free-text search filter for the /library page.
+// Operates on .library-card elements via data-tags / data-title attributes.
+// Pure progressive enhancement — works without JS by simply showing all cards.
+
+export interface Props {
+  topics?: { value: string; label: string }[];
+  audiences?: { value: string; label: string }[];
+}
+
+const {
+  topics = [
+    { value: 'all', label: 'All topics' },
+    { value: 'biochar-soil', label: 'Soil' },
+    { value: 'biochar-livestock', label: 'Livestock & feed' },
+    { value: 'biochar-turf', label: 'Turf & golf' },
+    { value: 'biochar-councils', label: 'Councils & urban' },
+    { value: 'biochar-water', label: 'Water & runoff' },
+    { value: 'biochar-compost', label: 'Compost' },
+    { value: 'biochar-pfas', label: 'PFAS / contaminants' },
+    { value: 'biochar-carbon', label: 'Carbon & climate' },
+    { value: 'biochar-process', label: 'Production process' },
+    { value: 'silvaculture', label: 'Silvaculture & fire regimes' },
+    { value: 'farming-practice', label: 'Farming practice' },
+  ],
+  audiences = [
+    { value: 'all', label: 'Anyone' },
+    { value: 'farmers', label: 'For farmers' },
+    { value: 'councils', label: 'For councils' },
+    { value: 'turf', label: 'For turf managers' },
+    { value: 'researchers', label: 'For researchers' },
+  ],
+} = Astro.props;
+---
+
+<div class="mb-10 bg-bg-tint border border-rule rounded-xl p-5 md:p-6">
+  <div class="flex flex-col md:flex-row md:items-end gap-4">
+    <div class="flex-1">
+      <label for="lib-search" class="field-label">Search the library</label>
+      <input
+        id="lib-search"
+        type="search"
+        placeholder="e.g. methane, dairy, PFAS, golf course…"
+        class="field"
+        autocomplete="off"
+      />
+    </div>
+    <div class="md:w-56">
+      <label for="lib-topic" class="field-label">Topic</label>
+      <select id="lib-topic" class="field">
+        {topics.map((t) => <option value={t.value}>{t.label}</option>)}
+      </select>
+    </div>
+    <div class="md:w-56">
+      <label for="lib-audience" class="field-label">Audience</label>
+      <select id="lib-audience" class="field">
+        {audiences.map((a) => <option value={a.value}>{a.label}</option>)}
+      </select>
+    </div>
+  </div>
+  <p
+    id="lib-results-summary"
+    class="mt-4 text-caption text-text-muted"
+    aria-live="polite"
+  >
+  </p>
+</div>
+
+<script is:inline>
+  (function () {
+    var search = document.getElementById('lib-search');
+    var topic = document.getElementById('lib-topic');
+    var audience = document.getElementById('lib-audience');
+    var summary = document.getElementById('lib-results-summary');
+    var cards = Array.from(document.querySelectorAll('.library-card'));
+    var emptyMsg = document.getElementById('lib-empty-state');
+
+    function update() {
+      var s = (search.value || '').trim().toLowerCase();
+      var t = topic.value;
+      var a = audience.value;
+      var shown = 0;
+      cards.forEach(function (card) {
+        var tags = (card.getAttribute('data-tags') || '').toLowerCase();
+        var title = (card.getAttribute('data-title') || '').toLowerCase();
+        var text = (card.textContent || '').toLowerCase();
+        var matchSearch =
+          !s || title.indexOf(s) !== -1 || text.indexOf(s) !== -1;
+        var matchTopic = t === 'all' || tags.indexOf(t) !== -1;
+        var matchAud = a === 'all' || tags.indexOf(a) !== -1;
+        var match = matchSearch && matchTopic && matchAud;
+        card.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      if (summary) {
+        summary.textContent =
+          shown === cards.length
+            ? 'Showing all ' + cards.length + ' papers.'
+            : 'Showing ' + shown + ' of ' + cards.length + ' papers.';
+      }
+      if (emptyMsg) {
+        emptyMsg.style.display = shown === 0 ? '' : 'none';
+      }
+    }
+
+    if (search) search.addEventListener('input', update);
+    if (topic) topic.addEventListener('change', update);
+    if (audience) audience.addEventListener('change', update);
+    update();
+  })();
+</script>

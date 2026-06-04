@@ -1,0 +1,89 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import FAQ from '@components/FAQ.astro';
+
+const title = 'Biological farming consulting in Australia';
+const description = 'System-design consulting for Australian biological and regenerative farms — soil biology, on-farm resource cycling, integrated biochar and composting programs.';
+
+const faqs = [
+  {
+    q: 'What does a typical engagement look like?',
+    a: 'A site visit first — paddock walk, soil-test review, conversation about what you\'re trying to achieve. Then a written brief: where the biggest leverage points are, what to change first, what to leave alone. From there it scales to your appetite — some operators just want the brief, others want quarterly check-ins, others want hands-on implementation support including biochar production days.',
+  },
+  {
+    q: 'Are you a qualified agronomist?',
+    a: 'Yes. The practice covers the full agronomic scope — soil testing, nutrient programs, paddock management, crop and pasture system design. Biology-first by preference, with the chemistry options on the table when a situation calls for them.',
+  },
+  {
+    q: 'Will this work alongside my existing program?',
+    a: 'Yes. We\'ll meet you where you are. Most engagements run as a layered addition to whatever practice is already working — adjusting at the rate the operation can absorb, not a clean-slate overhaul.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want a paddock walk and a written brief?"
+  enquiryRailCta="Book a consult"
+>
+  <Hero
+    layout="split"
+    eyebrow="Service · Agronomy & consulting"
+    heading="Qualified agronomy. Biology-first by preference."
+    lead="Full agronomic practice — soil testing, nutrient programs, paddock and pasture system design, on-farm implementation. We lead with the biology because that's where the long-term leverage sits; the chemistry options stay on the table when a situation calls for them."
+    primaryCta={{ label: 'Book a consult', href: '/contact?subject=biological-farming-consult' }}
+    secondaryCta={{ label: 'See related case studies', href: '/case-studies' }}
+    image="/images/hero/biological-farming.jpg"
+    imageAlt="Soil profile showing dark organic layer with root mass"
+  />
+
+  <Section container="narrow" eyebrow="The work" heading="What we actually do, in plain terms." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Standard agronomic practice — soil testing, nutrient programs, paddock and pasture system design, on-farm implementation — with one specific orientation: biology first. We start by getting the resources already on your farm working harder before we reach for purchased inputs. Manure, timber, crop residue, fallen limbs. Most farms have more than enough organic material to meet their soil's needs; the work is getting it back into the cycle.
+      </p>
+      <p>
+        That looks like soil testing and biological-audit work, system-design briefs, on-farm trial design, biochar and composting integration, and ongoing check-ins as practice changes settle in. We can lead the agronomy ourselves, or work alongside whatever agronomist or stock manager you already have.
+      </p>
+      <p>
+        We also work with operators who want to participate in Australia's carbon market through the <strong>Emissions Reduction Fund</strong> and the <strong>Australian Carbon Credit Units (ACCUs)</strong> scheme. Credit eligibility depends on project assessment by the Clean Energy Regulator — we'll be honest about what your specific operation supports.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="default" variant="tint" eyebrow="Where we help" heading="The leverage points." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Soil biology audit</h3>
+        <p class="mt-3 text-body text-text-muted">Where the microbial population is at, what's limiting it, and the cheapest practice change to lift it.</p>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Composting program</h3>
+        <p class="mt-3 text-body text-text-muted">Manure-and-biochar windrow design, application schedule, paddock targeting.</p>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Biochar integration</h3>
+        <p class="mt-3 text-body text-text-muted">Where biochar fits in your ration, your compost, or your soil amendment — at what rate, on which paddocks.</p>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">On-farm production</h3>
+        <p class="mt-3 text-body text-text-muted">Flame-curtain kiln days on your property, converting your own woody waste into biochar.</p>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Reforestation & shelterbelts</h3>
+        <p class="mt-3 text-body text-text-muted">Designing tree systems that produce biomass, shade, water-cycle benefits, and future biochar feedstock.</p>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Carbon-credit scoping</h3>
+        <p class="mt-3 text-body text-text-muted">Honest assessment of ACCU eligibility under the ERF — what your project can and can't claim.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section container="narrow" spacing="default">
+    <FAQ items={faqs} />
+  </Section>
+</BaseLayout>

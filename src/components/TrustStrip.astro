@@ -1,0 +1,43 @@
+---
+export interface Props {
+  items?: { icon?: string; label: string }[];
+  variant?: 'light' | 'dark';
+}
+
+const {
+  items = [
+    { label: '88.6% NATA-tested carbon' },
+    { label: 'Australian Sugargum hardwood' },
+    { label: 'Sold by the cubic metre' },
+  ],
+  variant = 'light',
+} = Astro.props;
+
+const isDark = variant === 'dark';
+---
+
+<ul
+  class={`flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-x-8 gap-y-3 ${isDark ? 'text-sky' : 'text-eucalypt'} text-body-sm`}
+>
+  {
+    items.map((it) => (
+      <li class="flex items-center gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke={isDark ? '#D9A65A' : '#A6772F'}
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+        <span class="font-display font-semibold">{it.label}</span>
+      </li>
+    ))
+  }
+</ul>

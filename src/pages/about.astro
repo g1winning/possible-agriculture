@@ -1,0 +1,127 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import Stamp from '@components/Stamp.astro';
+
+const title = 'About Possible Agriculture — Luca Brew, Central Victoria';
+const description = "Possible Agriculture is Luca Brew's biological farming consultancy and biochar production operation, based in Central Victoria. Long experience in the field. Founder-led. Direct contact.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  enquiryRailHeading="Want to talk to Luca directly?"
+  enquiryRailCta="Get in touch"
+>
+  <Hero
+    layout="split"
+    eyebrow="About"
+    heading="One founder, one farm, a long career in the field."
+    lead="Possible Agriculture is Luca Brew's biological farming consultancy and biochar production operation. Based in Central Victoria. Working with farmers, councils, turf managers and feedlot operators across Australia."
+    primaryCta={{ label: 'Call Luca on 0457 341 053', href: 'tel:+61457341053' }}
+    secondaryCta={{ label: 'Send an enquiry', href: '/contact' }}
+    image="/images/hero/about-luca.jpg"
+    imageAlt="Luca Brew on a Central Victoria farm at golden hour"
+  />
+
+  <Section container="narrow" eyebrow="The founder" heading="From Luca." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        I've been working in biological farming, agronomy, environmental remediation and biochar production for years now. The work started on my own land in Central Victoria — making char from storm-ravaged trees and shelterbelt residues that would otherwise have been fire hazards — and it expanded into consulting because the same questions kept coming up across other people's properties.
+      </p>
+      <p>
+        A big chunk of what I do now is expert consultations on biochar. After enough time in the field, I've seen what works on a putting green, what works in a feedlot ration, what works in a parkland subsoil, and where biochar's <em>not</em> the right answer. The published research has caught up to a lot of what we already knew from running the kiln; the gap is in translating that research into something a farmer or council manager can actually act on. That translation is the work.
+      </p>
+      <p>
+        The other side of the practice is silvaculture and forest management — converting fire-load and storm debris into a productive soil-carbon resource rather than a hazard. The flame-curtain method we use is a controlled industrial process: pyrolysis temperatures held to spec, output carbon content independently lab-tested, particle size graded for the intended use. A long way from an open-paddock burn.
+      </p>
+      <p>
+        Three ways we work: we'll come to your property and produce biochar on site, we'll supply biochar by the cubic metre, or we'll take on consulting and project work — biological farming, forest management, carbon, water. If you've got a paddock, a putting green, a parkland, or a milking shed where biochar might fit, call me.
+      </p>
+      <p class="text-text-muted text-body-sm">
+        — Luca Brew. Possible Agriculture, Central Victoria.
+      </p>
+    </div>
+  </Section>
+
+  <Section container="default" variant="tint" eyebrow="What we do" heading="Two halves of one operation." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">The product</h3>
+        <p class="mt-4 text-body text-text-muted">
+          Possible Agriculture Biochar — Australian Sugargum hardwood, fired at high pyrolysis temperatures, quenched with rainwater. Independently lab-tested at 88.6% total carbon. Sold by the cubic metre, delivered loose or on pallets.
+        </p>
+        <a href="/biochar" class="mt-6 inline-flex items-center gap-2 font-display font-semibold text-ink hover:text-bush-gold-600 transition-colors">
+          See the product page →
+        </a>
+      </div>
+      <div class="rounded-xl bg-paper border border-rule p-6 md:p-8">
+        <h3 class="font-display font-bold text-h3 text-ink">The consulting</h3>
+        <p class="mt-4 text-body text-text-muted">
+          Biological farming system design, forest and biomass management, carbon-farming scoping, water-treatment projects. Working alongside whatever agronomist or stock manager you already have.
+        </p>
+        <a href="/services" class="mt-6 inline-flex items-center gap-2 font-display font-semibold text-ink hover:text-bush-gold-600 transition-colors">
+          See the services page →
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CV / expertise -->
+  <Section container="wide" eyebrow="Field expertise" heading="The areas Luca consults across." spacing="default">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Biochar production</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Flame-curtain method on-farm. Sustainable Sugargum hardwood feedstock. Pyrolysis temperature control, rainwater activation, particle-size grading. NATA-tested 88.6% total carbon output.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Agronomy &amp; biological farming</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Qualified agronomist. Full scope of agronomic practice — soil testing, nutrient programs, paddock and pasture system design — with a biology-first orientation by preference.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Silvaculture &amp; forest management</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Reforestation, shelterbelt design, woodlot management, and converting fire-load and storm debris into biochar on-site via the flame-curtain method. Turning a liability into a soil-carbon resource.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Environmental remediation</h3>
+        <p class="mt-3 text-body text-text-muted">
+          PFAS stabilisation (Sørmo et al. 2021 inclusion rates), heavy-metal immobilisation, stormwater filter media design, contaminated-site pilot-trial scoping. Where the high-temperature activated biochar profile earns its credentials.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Livestock &amp; dairy nutrition</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Feed-additive integration at 0.6–1% dietary DM. Mycotoxin binding, methane reduction, dairy yield trial design. Working with vets and feed-mill operators on safe inclusion protocols.
+        </p>
+      </div>
+      <div class="rounded-xl border border-rule bg-paper p-6 md:p-8">
+        <h3 class="font-display font-bold text-h4-lg text-ink">Carbon farming &amp; ACCUs</h3>
+        <p class="mt-3 text-body text-text-muted">
+          Honest scoping of carbon-credit eligibility under the Emissions Reduction Fund. Methodology matching, baseline measurement design, working alongside ACCU specialists on the formal submission.
+        </p>
+      </div>
+    </div>
+    <p class="mt-10 text-body-sm italic text-text-muted max-w-prose">
+      If you're considering a brief — turn, paddock, golf course, council parkland, contaminated site, or livestock operation — start with a phone call. We'll work out together whether biochar (or biology, or silvaculture) is the right tool for what you're trying to solve.
+    </p>
+  </Section>
+
+  <!-- Provenance -->
+  <Section container="narrow" variant="tint" eyebrow="Provenance" heading="An old principle, an industrial process." spacing="default">
+    <div class="prose prose-pa">
+      <p>
+        Storm-ravaged trees and fallen limbs from farms across central Victoria — wood that would otherwise be fire hazards — are carefully slow-cooked in low-oxygen conditions, then quenched with rainwater. The principle of putting charred biomass into soil is old (Amazonian <em>terra preta</em> is the most famous historical example), but the process here is industrial: controlled pyrolysis, measured carbon content, graded particle size, NATA-accredited lab certification on every batch.
+      </p>
+      <div class="mt-6">
+        <Stamp />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
