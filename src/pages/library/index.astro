@@ -1,83 +1,47 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import Section from '@components/Section.astro';
-import CardLibrary from '@components/CardLibrary.astro';
-import LibraryFilter from '@components/LibraryFilter.astro';
+import LibraryBrowser from '@components/LibraryBrowser.astro';
+import data from '../../data/library.json';
 
-const title = 'Biochar research library — peer-reviewed, translated for operators';
-const description = 'A working library of the biochar research that matters — soil, livestock, turf, councils, PFAS, carbon. Each paper summarised for what it means on your property.';
-
-const entries = (await getCollection('library')).sort((a, b) => {
-  if (a.data.featured !== b.data.featured) return a.data.featured ? -1 : 1;
-  return a.data.order - b.data.order;
-});
-
-const featured = entries.filter((e) => e.data.featured);
-const rest = entries.filter((e) => !e.data.featured);
+const n = data.documents.length;
+const hosted = data.documents.filter((d) => d.href).length;
+const title = 'Biochar library: research, reports and field results';
+const description = `${n} publications on biochar in soil, crops, livestock feed, turf, council greenspace, water and remediation, compost, carbon and production, each summarised for the people who would use it. Search by crop, animal, place or topic.`;
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  enquiryRailHeading="Got a paper we should add to the library? Or a question one of these raises?"
-  enquiryRailCta="Get in touch"
+  enquiryRailHeading="Know of a paper or a trial report that belongs here?"
+  enquiryRailCta="Send it through"
 >
   <Hero
     layout="split"
     eyebrow="The Possible Agriculture biochar library"
-    heading="An indexed reference library for the biochar community."
-    lead={`${entries.length} peer-reviewed papers and industry reports covering biochar in soil, livestock, turf, councils, water filtration, and environmental remediation. Searchable, filterable, downloadable. Free to use.`}
-    primaryCta={{ label: 'Browse the papers', href: '#papers' }}
+    heading="Research, reports and field results on biochar."
+    lead={`${n} publications gathered from the journals, the research institutes, the industry bodies and producers overseas who have put biochar into paddocks, rations, greens and filters and measured what happened. Each one is summarised for the person who would use it. Search for a crop, an animal, a soil or a place, or pick a topic.`}
+    primaryCta={{ label: 'Browse the library', href: '#papers' }}
     secondaryCta={{ label: 'Suggest a paper', href: '/contact?subject=research-question' }}
     image="/images/hero/library.jpg"
     imageAlt="Research papers, brochures, and a biochar sample jar on a working desk in late afternoon light"
   />
 
-  <Section id="papers" container="wide" eyebrow="The library" heading="Filtered for the conversation you're in." spacing="default">
-    <LibraryFilter />
-
-    {
-      featured.length > 0 && (
-        <>
-          <h3 class="font-display font-bold text-h3 mb-6 mt-2 text-ink">Foundational and high-evidence</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-            {featured.map((e) => (
-              <CardLibrary {...e.data} />
-            ))}
-          </div>
-        </>
-      )
-    }
-
-    {
-      rest.length > 0 && (
-        <>
-          <h3 class="font-display font-bold text-h3 mb-6 mt-4 text-ink">Supporting research</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {rest.map((e) => (
-              <CardLibrary {...e.data} />
-            ))}
-          </div>
-        </>
-      )
-    }
-
-    <div id="lib-empty-state" class="hidden text-center py-16">
-      <p class="text-body-lg text-text-muted">
-        No papers match those filters yet. <button onclick="document.getElementById('lib-search').value='';document.getElementById('lib-topic').value='all';document.getElementById('lib-audience').value='all';document.getElementById('lib-search').dispatchEvent(new Event('input'));" class="text-eucalypt underline">Reset filters</button>.
-      </p>
-    </div>
+  <Section id="papers" container="default" spacing="default">
+    <LibraryBrowser />
   </Section>
 
-  <Section container="narrow" variant="tint" spacing="default">
+  <Section container="narrow" variant="tint" spacing="default" eyebrow="About the collection" heading="What is here, and why.">
     <div class="prose prose-pa">
       <p>
-        We've indexed the peer-reviewed evidence base for biochar in agriculture, livestock, turf, councils, water filtration and environmental remediation — and made it free for the wider biochar community to use. Searchable by topic and audience. Downloadable. Cited in every page on this site.
+        Every document here reports a result in favour of biochar for the use it studied. Work whose findings were neutral or went the other way is not listed, so this is a case for biochar, not a survey of everything written about it. The {hosted} documents held on this site are open access papers, government and industry reports, and producer articles published for free public use; each file carries its own copyright notice, and the original is linked beside it. Papers behind a publisher paywall are linked to the publisher. Summaries are ours, written from the documents, not quotations from them.
       </p>
       <p>
-        Aware of a paper we should add? <a href="/contact?subject=research-question">Send it through</a>.
+        No Australian biochar seller is linked from this page. Overseas producers appear where they have published trial results with named sites, rates and measured outcomes.
+      </p>
+      <p>
+        Know of a paper, a trial or a council report that belongs here? <a href="/contact?subject=research-question">Send it through</a>.
       </p>
     </div>
   </Section>

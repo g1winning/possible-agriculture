@@ -70,7 +70,7 @@ Most page copy lives directly in the `.astro` file under `src/pages/`. Open the 
 
 ### Adding a library entry
 
-Add a new `.md` file to `src/content/library/` using an existing entry as a template. The Library page reads all files in that folder automatically.
+The library index is `src/data/library.json`, one object per document (title, authors or publisher, source group, year, pages, file size, topic, summary, the longer note behind "More about this document", keywords, `href` for a PDF held under `public/pdfs/library/`, and `sourceUrl` for the original). Add an object, drop the PDF in `public/pdfs/library/` with the same slug, and the page picks it up on the next build. The topic and source lists at the top of the file set the filter chips and the dropdown. The build pipeline that produced the October 2026 index lives in `../10-library-ingestion-system/` (see `LIBRARY-ACQUISITION-PLAN-OCT2026.md`).
 
 ### Adding a case study
 

@@ -3,47 +3,6 @@
 
 import { defineCollection, z } from 'astro:content';
 
-const library = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    originalTitle: z.string().optional(),
-    authors: z.string(),
-    year: z.number(),
-    journal: z.string().optional(),
-    doi: z.string().optional(),
-    pdfFile: z.string().optional(), // relative to /public/pdfs/library/ — if absent, sourceUrl is used as the primary link
-    topics: z.array(
-      z.enum([
-        'biochar-soil',
-        'biochar-livestock',
-        'biochar-turf',
-        'biochar-councils',
-        'biochar-water',
-        'biochar-compost',
-        'biochar-pfas',
-        'biochar-carbon',
-        'biochar-process',
-        'silvaculture',
-        'farming-practice',
-      ]),
-    ),
-    audience: z.array(
-      z.enum(['farmers', 'councils', 'turf', 'researchers', 'general']),
-    ),
-    whyItMatters: z.string(), // 1–2 sentence farmer-facing translation
-    keyFinding: z.string(), // the headline result, on-brand
-    rating: z.enum(['foundational', 'strong-evidence', 'supporting', 'context']).default('supporting'),
-    yearRelevance: z.enum(['current', 'classic']).default('current'),
-    pageCount: z.number().optional(),
-    citation: z.string(), // full citation string
-    sourceUrl: z.string().url().optional(),
-    pubmedId: z.string().optional(),
-    featured: z.boolean().default(false),
-    order: z.number().default(0),
-  }),
-});
-
 const caseStudies = defineCollection({
   type: 'content',
   schema: z.object({
@@ -101,7 +60,6 @@ const insights = defineCollection({
 });
 
 export const collections = {
-  library,
   'case-studies': caseStudies,
   insights,
 };

@@ -1,0 +1,342 @@
+---
+// The biochar library index, in the shape of the Landcare Library on
+// swglandcare.org.au: a search box, a filter by source, topic chips with
+// counts, and the documents grouped by topic as a numbered list. Every entry
+// has a summary, a longer note behind "More about this document", the PDF
+// held on this site where the licence allows, and the original linked beside it.
+//
+// The data is src/data/library.json. Add a document there (and its PDF under
+// public/pdfs/library/) and it appears here on the next build.
+
+import data from '../data/library.json';
+
+type Doc = (typeof data.documents)[number];
+
+const topics: string[] = data.topics;
+const sources: string[] = data.sources;
+const docs: Doc[] = data.documents;
+
+const byTopic = new Map<string, Doc[]>();
+for (const t of topics) byTopic.set(t, []);
+for (const d of docs) {
+  if (!byTopic.has(d.topic)) byTopic.set(d.topic, []);
+  byTopic.get(d.topic)!.push(d);
+}
+
+function sizeOf(bytes: number | null): string {
+  if (!bytes) return '';
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+function hostOf(url: string | null): string {
+  if (!url) return '';
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+}
+
+function metaLine(d: Doc): string {
+  const parts: string[] = [];
+  if (d.authors) parts.push(d.authors);
+  if (d.publisher && d.publisher !== d.authors) parts.push(d.publisher);
+  if (d.year) parts.push(String(d.year));
+  if (d.pages) parts.push(`${d.pages} ${d.pages === 1 ? 'page' : 'pages'}`);
+  if (d.href && d.sizeBytes) parts.push(`PDF, ${sizeOf(d.sizeBytes)}`);
+  if (!d.href) parts.push('Online');
+  return parts.join(' · ');
+}
+
+function haystack(d: Doc): string {
+  return [d.title, d.authors, d.publisher, d.source, d.year, d.topic, d.summary, d.abstract, ...(d.keywords || [])]
+    .join(' \n ')
+    .toLowerCase();
+}
+---
+
+<div id="lib" class="lib">
+  <div class="bg-bg-tint border border-rule rounded-xl p-5 md:p-6 mb-8">
+    <div class="flex flex-col md:flex-row md:items-end gap-4">
+      <div class="flex-1">
+        <label for="lib-search" class="field-label">Search the library</label>
+        <input
+          id="lib-search"
+          type="search"
+          class="field"
+          placeholder="Search titles, summaries, crops, animals and places"
+          autocomplete="off"
+          aria-label="Search the library"
+        />
+      </div>
+      <div class="md:w-72">
+        <label for="lib-source" class="field-label">Source</label>
+        <select id="lib-source" class="field" aria-label="Filter by source">
+          <option value="">All sources</option>
+          {sources.map((s) => <option value={s}>{s}</option>)}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="lib-topics flex flex-wrap gap-2 mb-6" role="group" aria-label="Filter by topic">
+    <button type="button" class="lib-topic selected" data-topic="" aria-pressed="true">
+      All topics <span class="lib-topic-count">{docs.length}</span>
+    </button>
+    {
+      topics.map((t) => (
+        <button type="button" class="lib-topic" data-topic={t} aria-pressed="false">
+          {t} <span class="lib-topic-count">{byTopic.get(t)?.length ?? 0}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <p id="lib-count" class="text-caption text-text-muted font-mono mb-10" aria-live="polite">
+    {docs.length} documents
+  </p>
+
+  <p id="lib-empty" class="hidden text-body-lg text-text-muted py-10">
+    Nothing matches. Try fewer words, or clear the topic and source.
+  </p>
+
+  {
+    topics.map((t) => {
+      const items = byTopic.get(t) ?? [];
+      if (items.length === 0) return null;
+      return (
+        <section class="lib-group mb-14" data-topic={t}>
+          <div class="flex items-baseline justify-between gap-4 border-b-2 border-eucalypt pb-2 mb-6">
+            <h3 class="font-display font-bold text-h3 text-ink">{t}</h3>
+            <span class="lib-group-count text-caption text-text-muted font-mono whitespace-nowrap">
+              {items.length === 1 ? '1 document' : `${items.length} documents`}
+            </span>
+          </div>
+          <ol class="lib-list">
+            {items.map((d) => {
+              const primary = d.href ?? d.sourceUrl ?? '#';
+              const host = hostOf(d.sourceUrl);
+              return (
+                <li
+                  class="lib-entry"
+                  id={d.slug}
+                  data-topic={d.topic}
+                  data-source={d.source}
+                  data-text={haystack(d)}
+                >
+                  <h4 class="lib-title font-display font-bold text-h4 md:text-h4-lg leading-snug text-ink">
+                    <a href={primary} target="_blank" rel="noopener">
+                      {d.title}
+                    </a>
+                  </h4>
+                  <p class="text-caption text-text-muted mt-1">{metaLine(d)}</p>
+                  <p class="text-body text-text leading-relaxed mt-3">{d.summary}</p>
+                  {d.abstract && (
+                    <p class="lib-abstract hidden text-body-sm text-text-muted leading-relaxed mt-3">
+                      {d.abstract}
+                    </p>
+                  )}
+                  <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+                    {d.href ? (
+                      <a
+                        href={d.href}
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-secondary !min-h-[40px] !py-2 !px-4 text-body-sm"
+                      >
+                        Open PDF
+                      </a>
+                    ) : d.sourceUrl ? (
+                      <a
+                        href={d.sourceUrl}
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-secondary !min-h-[40px] !py-2 !px-4 text-body-sm"
+                      >
+                        View at source
+                      </a>
+                    ) : null}
+                    {d.abstract && (
+                      <button type="button" class="lib-more text-body-sm text-eucalypt underline underline-offset-4" aria-expanded="false">
+                        More about this document
+                      </button>
+                    )}
+                    {d.href && host && (
+                      <a
+                        href={d.sourceUrl}
+                        target="_blank"
+                        rel="noopener"
+                        class="text-body-sm text-text-muted underline underline-offset-4"
+                      >
+                        Original at {host}
+                      </a>
+                    )}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      );
+    })
+  }
+</div>
+
+<style>
+  .lib-topic {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--color-rule);
+    border-radius: 9999px;
+    background: var(--paper);
+    color: var(--eucalypt);
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    cursor: pointer;
+    transition: background-color 120ms ease-out, color 120ms ease-out, border-color 120ms ease-out;
+  }
+  .lib-topic:hover {
+    border-color: var(--sage);
+  }
+  .lib-topic.selected {
+    background: var(--eucalypt);
+    color: var(--paper);
+    border-color: var(--eucalypt);
+  }
+  .lib-topic-count {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-weight: 500;
+    font-size: 0.75rem;
+    opacity: 0.75;
+  }
+  .lib-list {
+    list-style: none;
+    counter-reset: lib;
+    margin: 0;
+    padding: 0;
+  }
+  .lib-entry {
+    counter-increment: lib;
+    position: relative;
+    padding: 1.5rem 0 1.5rem 3.25rem;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .lib-entry::before {
+    content: counter(lib, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 1.7rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8125rem;
+    color: var(--umber);
+  }
+  .lib-entry:last-child {
+    border-bottom: none;
+  }
+  .lib-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .lib-title a:hover {
+    color: #c8923f;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .lib-more {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+  @media (max-width: 640px) {
+    .lib-entry {
+      padding-left: 2.25rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var root = document.getElementById('lib');
+      if (!root) return;
+      var search = document.getElementById('lib-search');
+      var source = document.getElementById('lib-source');
+      var count = document.getElementById('lib-count');
+      var empty = document.getElementById('lib-empty');
+      var chips = Array.prototype.slice.call(root.querySelectorAll('.lib-topic'));
+      var groups = Array.prototype.slice.call(root.querySelectorAll('.lib-group'));
+      var entries = Array.prototype.slice.call(root.querySelectorAll('.lib-entry'));
+      var total = entries.length;
+      var topic = '';
+
+      // Deep link: /library?topic=Turf or ?q=dairy
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('q')) search.value = params.get('q');
+        if (params.get('topic')) topic = params.get('topic');
+      } catch (e) {}
+
+      function update() {
+        var terms = (search.value || '').toLowerCase().split(/\s+/).filter(Boolean);
+        var src = source.value;
+        var shown = 0;
+        entries.forEach(function (li) {
+          var ok = true;
+          if (topic && li.getAttribute('data-topic') !== topic) ok = false;
+          if (ok && src && li.getAttribute('data-source') !== src) ok = false;
+          if (ok && terms.length) {
+            var text = li.getAttribute('data-text') || '';
+            for (var i = 0; i < terms.length; i++) {
+              if (text.indexOf(terms[i]) === -1) { ok = false; break; }
+            }
+          }
+          li.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        groups.forEach(function (g) {
+          var visible = g.querySelectorAll('.lib-entry:not([style*="display: none"])').length;
+          g.style.display = visible ? '' : 'none';
+          var c = g.querySelector('.lib-group-count');
+          if (c) c.textContent = visible === 1 ? '1 document' : visible + ' documents';
+        });
+        chips.forEach(function (b) {
+          var sel = (b.getAttribute('data-topic') || '') === topic;
+          b.classList.toggle('selected', sel);
+          b.setAttribute('aria-pressed', sel ? 'true' : 'false');
+        });
+        count.textContent = shown === total ? total + ' documents' : shown + ' of ' + total + ' documents';
+        empty.classList.toggle('hidden', shown !== 0);
+      }
+
+      chips.forEach(function (b) {
+        b.addEventListener('click', function () {
+          var t = b.getAttribute('data-topic') || '';
+          topic = topic === t ? '' : t;
+          update();
+        });
+      });
+      search.addEventListener('input', update);
+      source.addEventListener('change', update);
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('.lib-more');
+        if (!btn) return;
+        var li = btn.closest('.lib-entry');
+        var abs = li && li.querySelector('.lib-abstract');
+        if (!abs) return;
+        var open = abs.classList.toggle('hidden') === false;
+        btn.textContent = open ? 'Less' : 'More about this document';
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      update();
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>
